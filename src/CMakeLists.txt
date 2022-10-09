@@ -8,10 +8,12 @@ add_executable(minishell
 
 target_link_libraries(minishell
   PRIVATE
-  readline
   libft
   parse
   execute
   environ
   tokenize
+  libhistory.a
+  libreadline.a
+  tinfo
 )
