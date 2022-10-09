@@ -2,6 +2,7 @@
 #include <readline/readline.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/signal.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
@@ -9,6 +10,7 @@
 #include "lib/execute/execute.h"
 #include "lib/libft/libft.h"
 #include "lib/parse/parse.h"
+#include "src/minishell.h"
 
 static int create_tmpfile(char *filename, int size) {
   int i = 0;
@@ -19,8 +21,6 @@ static int create_tmpfile(char *filename, int size) {
     free(nbr);
     if (access(filename, F_OK) == -1)
       break;
-    else
-      perror("access");
     i += 1;
   }
   int fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0644);
@@ -69,18 +69,19 @@ int heredoc_replace(cmd *c) {
       char *file_name = ft_calloc_or_die(1, 30);
       int fd = create_tmpfile(file_name, 30);
       int ret;
-      // signal?
+      signal(SIGINT, SIG_IGN);
       int pid = fork();
       if (pid == -1) exit(1);
       if (pid == 0) {
-        // signal;
+        signal(SIGINT, SIG_DFL);
         heredoc_child(c, fd);
         exit(0);
       }
       free(c->redirect_input->str);
       c->redirect_input->str = file_name;
       waitpid(-1, &ret, 0);
-      // signal?
+      printf("done\n");
+      set_signal(SIG_DEFAULT);
       if (ret != 0) return ret;
     }
     c = c->next;

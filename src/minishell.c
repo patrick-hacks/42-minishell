@@ -25,7 +25,9 @@ int execute_after_heredoc(cmd *c) {
 int minishell() {
   environ_init();
   while (1) {
+    set_signal(SIG_DEFAULT);
     char *line = readline(promt);
+    set_signal(SIG_CHILD);
     if (!line || !ft_strncmp(line, "", 2)) continue;
     add_history(line);
     token *tokens = tokenize(line);

@@ -2,13 +2,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/signal.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
+#include "lib/execute/src/builtin/builtin.h"
 #include "lib/libft/libft.h"
 #include "lib/parse/parse.h"
 #include "lib/tokenize/tokenize.h"
-#include "lib/execute/src/builtin/builtin.h"
 
 int wait_children(int *pids) {
   int exit_status;
@@ -46,7 +47,7 @@ int child_fork(cmd *c, int *fd) {
   // signal?
   int pid = fork_or_die();
   if (pid == 0) {
-    // signal?
+    signal(SIGINT, SIG_DFL);
     child_run(c, fd);
   }
   return (pid);
@@ -91,11 +92,9 @@ int execute_cmd(cmd *c) {
 }
 
 int execute_fork(cmd *c) {
-  // signal?;
   int fake_fd[3] = {-1, -1, -1};
   int pid = fork_or_die();
   if (pid == 0) {
-    // signal?;
     execute_cmd(c);
     cmd_exit(c, fake_fd);
     exit(0);

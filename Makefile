@@ -9,9 +9,6 @@ clean:
 fclean: clean
 	rm -f minishell
 
-supp:
-	@echo "{\n ignore_libreadline_libs\n Memcheck:Leak\n ...\n obj:*/libreadline.so.*\n}" > supp
-
 valgrind: minishell supp
 	valgrind --quiet --tool=memcheck --leak-check=full --show-leak-kinds=all --suppressions=supp --track-fds=yes ./minishell
 
