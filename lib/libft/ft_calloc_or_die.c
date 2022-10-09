@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfuchs <pfuchs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/23 20:21:20 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/04/24 01:25:39 by pfuchs           ###   ########.fr       */
+/*   Created: 2022/02/28 08:47:26 by pfuchs            #+#    #+#             */
+/*   Updated: 2022/04/11 09:58:12 by pfuchs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h" // ft_memset
 
-#include "minishell.h"
+#include <stdlib.h> // malloc
+#include <stddef.h> // NULL size_t
 
-int main(int argc, char **argv) {
-  if (argc != 1) return 1;
-  (void)argv;
+// Allocates memory for "num" items with "size", initialises to 0
+void	*ft_calloc_or_die(size_t num, size_t size)
+{
+	char	*memory;
 
-  return minishell();
+	if (size && num > ((size_t)-1) / size)
+		exit(-1);
+	memory = (char *)malloc(num * size);
+	if (!memory)
+		exit(-1);
+	ft_memset(memory, 0, num * size);
+	return (memory);
 }

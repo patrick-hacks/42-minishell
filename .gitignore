@@ -1,3 +1,6 @@
+minishell
+build
+
 # Prerequisites
 *.d
 
@@ -50,3 +53,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Log files
+*.log*

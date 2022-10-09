@@ -1,62 +1,39 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/23 20:23:02 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/05/03 13:31:19 by pfuchs           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "src/minishell.h"
 
-#include "minishell.h"
-
-#include <readline/readline.h>
+#include <stdio.h>
 #include <stdlib.h>
 
-#include "environ.h"
-#include "parse.h"
-#include "libft.h"
-#include "cmds.h"
-#include "execute.h"
+#include "lib/environ/environ.h"
+#include "lib/execute/execute.h"
+#include "lib/libft/libft.h"
+#include "lib/parse/parse.h"
+#include "lib/readline/history.h"
+#include "lib/readline/readline.h"
+#include "lib/tokenize/tokenize.h"
 
-extern char **environ;
+static const char promt[] = {0xE2, 0x9E, 0x9C, ' ', '\0'};
 
-static const char promt[] = { 0xE2, 0x9E, 0x9C, ' ', '\0'};
+int execute_after_heredoc(cmd *c) {
+  heredoc_replace(c);
+  debug_cmd_print(c);
+  execute(c);
+  heredoc_cleanup(c);
+}
 
-int	minishell()
-{
-	char			*buf;
-	char			**words;
-
-	if (environ_init())
-		return (1);
-	while (1)
-	{
-		buf = readline(promt);
-		add_history(buf);
-		if (!buf)
-			continue;
-		if (ft_strncmp(buf, "exit", 4) == 0)
-		{
-			free(buf);
-			//rl_clear_history();
-			environ_cleanup();
-			return (0);
-		}
-		words = parse(buf);
-		//printf("now executing\n");
-		if (*words != NULL)
-			execute(words);
-		int i = 0;
-		while (words[i])
-		{
-			free(words[i]);
-			i++;
-		}
-		free(words);
-		free(buf);
-	}
-	return (0);
+int minishell() {
+  environ_init();
+  while (1) {
+    char *line = readline(promt);
+    if (!line || !ft_strncmp(line, "", 2)) continue;
+    add_history(line);
+    token *tokens = tokenize(line);
+    free(line);
+    if (!tokens) break;
+    parse_expand_token(tokens);
+    cmd *commands = parse(tokens);
+    execute_after_heredoc(commands);
+    parse_lst_free(&commands);
+  }
+  environ_cleanup();
+  return (0);
 }

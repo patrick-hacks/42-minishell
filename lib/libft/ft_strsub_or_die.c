@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfuchs <pfuchs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/23 20:21:20 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/04/24 01:25:39 by pfuchs           ###   ########.fr       */
+/*   Created: 2022/02/28 09:59:41 by pfuchs            #+#    #+#             */
+/*   Updated: 2022/05/03 12:41:51 by pfuchs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h" // ft_strndup
 
-#include "minishell.h"
+#include <stdlib.h>
 
-int main(int argc, char **argv) {
-  if (argc != 1) return 1;
-  (void)argv;
-
-  return minishell();
+char	*ft_strsub_or_die(char const *str, unsigned int start, size_t n)
+{
+	char *new_str = ft_strsub(str, start, n);
+	if (!new_str)
+		exit(-1);
+		return new_str;
 }
