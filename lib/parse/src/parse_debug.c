@@ -25,7 +25,7 @@ static void debug_cmd_redirect(token *redir) {
 
 void debug_cmd_print(cmd *command) {
   printf("\033[1;43m");
-  printf("%-106s", "       Commands");
+  printf("%-100s", "       Commands");
   printf("\033[0m\n");
   cmd *last;
   while (command) {

@@ -16,7 +16,6 @@ static int create_tmpfile(char *filename, int size) {
     ft_strncpy(filename, "/tmp/mini", size);
     char *nbr = ft_itoa(i);
     ft_strlcat(filename, nbr, size);
-    printf("%s\n", nbr);
     free(nbr);
     if (access(filename, F_OK) == -1)
       break;

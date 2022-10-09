@@ -58,7 +58,6 @@ void set_pipe(cmd *c, int fd[3]) {
     fd[1] = -1;
     fd[2] = -1;
   } else {
-    printf("piping from %d\n", fd[2]);
     close_or_die(fd[0]);
     close_or_die(fd[1]);
     fd[0] = fd[2];
@@ -70,7 +69,6 @@ void set_pipe(cmd *c, int fd[3]) {
     int tmp = fd[1];
     fd[1] = fd[2];
     fd[2] = tmp;
-    printf("piping from %d to %d\n", fd[1], fd[2]);
   }
 }
 

@@ -8,7 +8,6 @@ int extract_redirection(cmd *cmd) {
   token *tok = cmd->simple_cmd;
   while (tok) {
     if (tok->flags & TOK_REDIRECT) {
-      printf("adding redirection %s\n", tok->next->str);
       token *name = tok->next;
       if (!name || !name->str) return 1;
       token *next = name->next;

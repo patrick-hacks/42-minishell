@@ -9,14 +9,10 @@
 static void child_exec(cmd *c, int fd[2]) {
   char *cmd = find_command(c->simple_cmd->str);
   if (cmd) {
-    execve(cmd, get_argv(c), g_environ);
-    perror("execve");
-    execve("/bin/true", get_argv(c), g_environ);
-    exit(1);
+    execve_or_die(cmd, get_argv(c), g_environ);
   }
   fprintf(stderr, "command not found\n");
-  execve("/bin/true", get_argv(c), g_environ);
-  exit(1);
+  execve_or_die("/bin/true", get_argv(c), g_environ);
 }
 
 void child_run(cmd *c, int *fd) {
@@ -27,8 +23,7 @@ void child_run(cmd *c, int *fd) {
 
 void child_run_builtin(cmd *c, int *fd) {
   builtin_main main = get_builtin(c->simple_cmd->str);
-  // make sure this doesnt exit
-  child_redirect_builtin(c, fd);
-  //close_or_die(fd[2]);
+  // child_redirect_builtin(c, fd);
+  // close_or_die(fd[2]);
   main(c, fd);
 }

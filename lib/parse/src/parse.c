@@ -7,9 +7,6 @@ cmd *parse(token *tok) {
   // remove_empty(&tok);
   word_join(&tok);
   cmd *head = convert_to_command(tok);
-  if (getenv("DEBUG")) {
-    debug_cmd_print(head);
-  }
   cmd *it = head;
   while (it) {
     if (extract_redirection(it)) {

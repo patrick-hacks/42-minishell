@@ -24,6 +24,7 @@ char *find_command(char *cmd);
 void pipe_or_die(int *fd);
 int fork_or_die();
 void close_or_die(int fd);
+void execve_or_die(char *cmd, char **argv, char **env);
 int get_argc(cmd *c);
 char **get_argv(cmd *c);
 

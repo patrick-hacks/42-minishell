@@ -19,4 +19,4 @@ bool is_pipe_correct(token *t);
 
 void debug_token_print(token *tokens);
 
-#endif  // LIB_TOKENIZE_SRC_TOKENIZE_H_
+#endif // LIB_TOKENIZE_SRC_TOKENIZE_H_

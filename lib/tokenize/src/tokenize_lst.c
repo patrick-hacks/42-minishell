@@ -4,11 +4,6 @@
 
 void token_lst_push_back(token **lst, token *new_token) {
   token *it = *lst;
-  printf("  start:\n");
-  while (it) {
-    printf("it: %s\n", it->str);
-    it = it->next;
-  }
   new_token->next = NULL;
   if (*lst == NULL) {
     *lst = new_token;
@@ -20,11 +15,6 @@ void token_lst_push_back(token **lst, token *new_token) {
     new_token->prev = it;
   }
   it = *lst;
-  printf("  end:\n");
-  while (it) {
-    printf("it: %s\n", it->str);
-    it = it->next;
-  }
 }
 
 token *token_lst_remove(token **head, token *remove) {
