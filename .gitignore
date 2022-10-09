@@ -1,5 +1,6 @@
 minishell
 build
+lib/readline
 
 # Prerequisites
 *.d
