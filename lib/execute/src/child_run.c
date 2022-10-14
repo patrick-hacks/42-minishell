@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-static void child_exec(cmd *c, int fd[2]) {
+static void child_exec(cmd *c) {
   char *cmd = find_command(c->simple_cmd->str);
   if (cmd) {
     execve_or_die(cmd, get_argv(c), g_environ);
@@ -18,7 +18,7 @@ static void child_exec(cmd *c, int fd[2]) {
 void child_run(cmd *c, int *fd) {
   child_redirect(c, fd);
   close_or_die(fd[2]);
-	child_exec(c, fd);
+	child_exec(c);
 }
 
 void child_run_builtin(cmd *c, int *fd) {

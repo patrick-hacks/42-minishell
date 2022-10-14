@@ -2,6 +2,7 @@
 #include "lib/execute/src/execute.h"
 
 int cmd_export(cmd *c, int *fd) {
+  (void) fd;
   token *it = c->simple_cmd;
   while (it) {
     environ_add(it->str);

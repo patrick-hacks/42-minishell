@@ -5,6 +5,7 @@
 
 #include "lib/environ/environ.h"
 #include "src/minishell.h"
+#include "lib/readline/readline.h"
 
 void sigint_handler(int signo) {
   if (signo == SIGINT) {

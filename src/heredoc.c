@@ -32,6 +32,7 @@ static int create_tmpfile(char *filename, int size) {
 }
 
 static void read_to_fd(int fd, char *delim, bool expand) {
+  (void) expand;
   const int max_length = 65536;
   char *line = ft_calloc_or_die(1, max_length);
   while (1) {
@@ -41,7 +42,7 @@ static void read_to_fd(int fd, char *delim, bool expand) {
     if (len == 0) continue;
     if (len < 0) break;
     line[len] = '\0';
-    if (ft_strncmp(line, delim, len - 1) == 0 && ft_strlen(delim) == len - 1)
+    if (ft_strncmp(line, delim, len - 1) == 0 && ft_strlen(delim) == (size_t)(len - 1))
       break;
     write(fd, line, len);
   }
@@ -62,8 +63,6 @@ static void heredoc_child(cmd *c, int fd) {
 }
 
 int heredoc_replace(cmd *c) {
-  char file_name[30];
-  cmd *it = c;
   while (c) {
     if (c->redirect_input && c->redirect_input->flags & TOK_HEREDOC) {
       char *file_name = ft_calloc_or_die(1, 30);

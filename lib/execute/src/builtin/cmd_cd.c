@@ -23,9 +23,11 @@ int chdir_error(const char *str) {
   ft_strlcat(key_set, "PWD=", ft_strlen(pwd) + 5);
   environ_add(key_set);
   free(key_set);
+  return -1;
 }
 
 int cmd_cd(cmd *c, int *fd) {
+  (void) fd;
   token *first = c->simple_cmd;
   if (!first) {
     const char *home = environ_get("HOME");

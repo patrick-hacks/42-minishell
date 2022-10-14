@@ -23,6 +23,7 @@ int extract_redirection(cmd *cmd) {
       tok = tok->next;
     }
   }
+  return 0;
 }
 
 cmd *convert_to_command(token *tok) {

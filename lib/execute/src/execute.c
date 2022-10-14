@@ -96,7 +96,7 @@ int execute_fork(cmd *c) {
   int pid = fork_or_die();
   if (pid == 0) {
     execute_cmd(c);
-    cmd_exit(c, fake_fd);
+    get_builtin("exit")(c, fake_fd);
     exit(0);
   }
   waitpid(-1, NULL, 0);

@@ -19,5 +19,5 @@ char	*ft_strsub_or_die(char const *str, unsigned int start, size_t n)
 	char *new_str = ft_strsub(str, start, n);
 	if (!new_str)
 		exit(-1);
-		return new_str;
+	return new_str;
 }

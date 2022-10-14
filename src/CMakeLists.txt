@@ -13,7 +13,5 @@ target_link_libraries(minishell
   execute
   environ
   tokenize
-  libhistory.a
-  libreadline.a
-  tinfo
+  local_readline
 )

@@ -27,7 +27,6 @@ void debug_cmd_print(cmd *command) {
   printf("\033[1;43m");
   printf("%-100s", "       Commands");
   printf("\033[0m\n");
-  cmd *last;
   while (command) {
     token *it = command->simple_cmd;
     while (it) {

@@ -13,7 +13,7 @@
 
 static const char promt[] = {0xE2, 0x9E, 0x9C, ' ', '\0'};
 
-int execute_after_heredoc(cmd *c) {
+void execute_after_heredoc(cmd *c) {
   heredoc_replace(c);
   if (getenv("DEBUG")) {
     debug_cmd_print(c);

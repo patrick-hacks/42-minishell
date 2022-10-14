@@ -2,6 +2,7 @@
 #include "lib/execute/src/execute.h"
 
 int cmd_unset(cmd *c, int *fd) {
+  (void) fd;
   token *it = c->simple_cmd;
   while (it) {
     environ_remove(it->str);

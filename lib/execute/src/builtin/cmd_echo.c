@@ -17,7 +17,8 @@ int cmd_echo(cmd *c, int *fd) {
     it = it->next;
     if (it) dprintf(fd[1], " ");
   }
-  if (new_line) dprintf(fd[1], "\n", 1);
+  if (new_line) dprintf(fd[1], "\n");
+  return 0;
 	// close_or_die(fd[0]);
 	// close_or_die(fd[1]);
 }

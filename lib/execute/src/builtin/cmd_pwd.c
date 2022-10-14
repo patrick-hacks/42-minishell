@@ -5,6 +5,8 @@
 #include "lib/execute/src/execute.h"
 
 int cmd_pwd(cmd *c, int *fd) {
+  (void) c;
+  (void) fd;
   char cwd[PATH_MAX];
 
   cwd[0] = '\0';

@@ -27,4 +27,6 @@ int parse_expand_str(char *str, int max_len);
 /// @param head Head of the list
 void parse_lst_free(cmd **c);
 
+void debug_cmd_print(cmd *command);
+
 #endif // LIB_PARSE_PARSE_H_

@@ -1,7 +1,10 @@
-minishell:
+minishell: lib/readline/config.h
 	@mkdir -p build
 	@(cd build && cmake .. && make --no-print-directory)
 	@cp build/minishell minishell
+
+lib/readline/config.h:
+	(cd lib/readline && ./configure)
 
 clean:
 	rm -fr build
@@ -9,7 +12,7 @@ clean:
 fclean: clean
 	rm -f minishell
 
-valgrind: minishell supp
+valgrind: minishell
 	valgrind --quiet --tool=memcheck --leak-check=full --show-leak-kinds=all --suppressions=supp --track-fds=yes ./minishell
 
 norm:

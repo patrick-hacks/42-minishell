@@ -47,6 +47,7 @@ token *get_redirect(char *line, int *i) {
 }
 
 token *get_pipe(char *line, int *i) {
+  (void) line;
   token *new_token = ft_calloc_or_die(1, sizeof(token));
 
   new_token->flags |= TOK_PIPE;

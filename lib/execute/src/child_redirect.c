@@ -57,6 +57,8 @@ void child_redirect(cmd *c, int fd[2]) {
 
 // I think they dont need input
 void child_redirect_builtin(cmd *c, int fd[2]) {
+  (void) c;
+  (void) fd;
   // int in = get_infile(c->redirect_input);
   // if (in != -1) {
   //   close_or_die(fd[0]);
