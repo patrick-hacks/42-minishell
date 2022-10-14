@@ -22,7 +22,7 @@ void sigint_handler_print_newline(int signo) {
 
 void set_signal(int sig) {
   signal(SIGQUIT, SIG_DFL);
-  fprintf(stderr, "setting signal mode to %d\n", sig);
+  // fprintf(stderr, "setting signal mode to %d\n", sig);
   if (sig == SIG_CHILD) signal(SIGINT, SIG_IGN);
   if (sig == SIG_DEFAULT) signal(SIGINT, sigint_handler);
   if (sig == SIG_HEREDOC) signal(SIGINT, sigint_handler_print_newline);

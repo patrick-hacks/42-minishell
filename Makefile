@@ -8,6 +8,7 @@ lib/readline/config.h:
 
 clean:
 	rm -fr build
+	rm -f lib/readline/config.h
 
 fclean: clean
 	rm -f minishell

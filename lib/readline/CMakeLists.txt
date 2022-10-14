@@ -69,4 +69,4 @@ if(UNIX)
   target_link_libraries(local_readline PRIVATE -ltinfo)
 endif(UNIX)
 
-add_custom_command(OUTPUT config.h COMMAND "./configure" WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/config.h COMMAND "./configure" WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
