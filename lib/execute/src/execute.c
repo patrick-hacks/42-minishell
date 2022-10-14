@@ -10,6 +10,7 @@
 #include "lib/libft/libft.h"
 #include "lib/parse/parse.h"
 #include "lib/tokenize/tokenize.h"
+#include "lib/environ/environ.h"
 
 int wait_children(int *pids) {
   int exit_status;
@@ -33,13 +34,17 @@ static int command_count(cmd *c) {
 int handle_wait_status(int *pids) {
   int exit_status;
   int error;
-
   exit_status = wait_children(pids);
   if (WIFEXITED(exit_status))
     error = WEXITSTATUS(exit_status);
   else
     error = WCOREFLAG + WTERMSIG(exit_status);
   free(pids);
+  char buf[10] = "?=";
+  char *error_str = ft_itoa(error);
+  ft_strcat(buf, error_str);
+  free(error_str);
+  environ_add(buf);
   return (error);
 }
 

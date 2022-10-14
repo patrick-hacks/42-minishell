@@ -4,11 +4,12 @@
 #include <unistd.h>
 
 #include "lib/environ/environ.h"
-#include "src/minishell.h"
 #include "lib/readline/readline.h"
+#include "src/minishell.h"
 
 void sigint_handler(int signo) {
   if (signo == SIGINT) {
+    environ_add("?=130");
     write(2, "\n", 1);
     rl_on_new_line();
     rl_replace_line("", 1);
@@ -17,6 +18,7 @@ void sigint_handler(int signo) {
 }
 
 void sigint_handler_print_newline(int signo) {
+  environ_add("?=130");
   if (signo == SIGINT) write(2, "\n", 1);
 }
 

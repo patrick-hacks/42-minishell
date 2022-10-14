@@ -11,31 +11,36 @@
 #include "lib/readline/readline.h"
 #include "lib/tokenize/tokenize.h"
 
-static const char promt[] = {0xE2, 0x9E, 0x9C, ' ', '\0'};
-
-void execute_after_heredoc(cmd *c) {
-  heredoc_replace(c);
-  if (getenv("DEBUG")) {
-    debug_cmd_print(c);
+static char *signal_readline() {
+  char *line = NULL;
+  set_signal(SIG_DEFAULT);
+  char *ret = environ_get("?");
+  char prompt[20];
+  ft_strcpy(prompt, "\e[1;32m\xE2\x9E\x9C\e[0m ");
+  if (ret && ret[0] != '0' && ft_strlen(ret) <= 5) {
+    ft_strcpy(prompt, "\e[1;31m   \xE2\x9E\x9C\e[0m ");
+    ft_memcpy(prompt + 7, ret, ft_strlen(ret));
   }
-  execute(c);
-  heredoc_cleanup(c);
+  while (!line || !line[0]) {
+    line = readline(prompt);
+  }
+  set_signal(SIG_CHILD);
+  add_history(line);
+  return line;
 }
 
 int minishell() {
   environ_init();
   while (1) {
-    set_signal(SIG_DEFAULT);
-    char *line = readline(promt);
-    set_signal(SIG_CHILD);
-    if (!line || !ft_strncmp(line, "", 2)) continue;
-    add_history(line);
+    char *line = signal_readline();
     token *tokens = tokenize(line);
     free(line);
-    if (!tokens) break;
+    if (!tokens) continue;
     parse_expand_token(tokens);
     cmd *commands = parse(tokens);
-    execute_after_heredoc(commands);
+    heredoc_replace(commands);
+    execute(commands);
+    heredoc_cleanup(commands);
     parse_lst_free(&commands);
   }
   environ_cleanup();
