@@ -19,8 +19,7 @@ static int create_tmpfile(char *filename, int size) {
     char *nbr = ft_itoa(i);
     ft_strlcat(filename, nbr, size);
     free(nbr);
-    if (access(filename, F_OK) == -1)
-      break;
+    if (access(filename, F_OK) == -1) break;
     i += 1;
   }
   int fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0644);
@@ -32,7 +31,7 @@ static int create_tmpfile(char *filename, int size) {
 }
 
 static void read_to_fd(int fd, char *delim, bool expand) {
-  (void) expand;
+  (void)expand;
   const int max_length = 65536;
   char *line = ft_calloc_or_die(1, max_length);
   while (1) {
@@ -42,7 +41,8 @@ static void read_to_fd(int fd, char *delim, bool expand) {
     if (len == 0) continue;
     if (len < 0) break;
     line[len] = '\0';
-    if (ft_strncmp(line, delim, len - 1) == 0 && ft_strlen(delim) == (size_t)(len - 1))
+    if (ft_strncmp(line, delim, len - 1) == 0 &&
+        ft_strlen(delim) == (size_t)(len - 1))
       break;
     write(fd, line, len);
   }
@@ -74,14 +74,16 @@ int heredoc_replace(cmd *c) {
       if (pid == 0) {
         signal(SIGINT, SIG_DFL);
         heredoc_child(c, fd);
-        exit(0);
+        exit(42);
       }
       free(c->redirect_input->str);
       c->redirect_input->str = file_name;
       waitpid(-1, &ret, 0);
-      printf("done\n");
       set_signal(SIG_DEFAULT);
-      if (ret != 0) return ret;
+      if (WIFSIGNALED(ret) || !WIFEXITED(ret) || WEXITSTATUS(ret) != 0) {
+        environ_add("?=130");
+        return 1;
+      }
     }
     c = c->next;
   }

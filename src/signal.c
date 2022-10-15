@@ -7,15 +7,7 @@
 #include "lib/readline/readline.h"
 #include "src/minishell.h"
 
-void sigint_handler(int signo) {
-  if (signo == SIGINT) {
-    environ_add("?=130");
-    write(2, "\n", 1);
-    rl_on_new_line();
-    rl_replace_line("", 1);
-    rl_redisplay();
-  }
-}
+void empty(int signo) {(void) signo;}
 
 void sigint_handler_print_newline(int signo) {
   environ_add("?=130");
@@ -26,7 +18,7 @@ void set_signal(int sig) {
   signal(SIGQUIT, SIG_DFL);
   // fprintf(stderr, "setting signal mode to %d\n", sig);
   if (sig == SIG_CHILD) signal(SIGINT, SIG_IGN);
-  if (sig == SIG_DEFAULT) signal(SIGINT, sigint_handler);
+  if (sig == SIG_DEFAULT) signal(SIGINT, empty);
   if (sig == SIG_HEREDOC) signal(SIGINT, sigint_handler_print_newline);
   if (sig == SIG_HEREDOC_CHILD) signal(SIGINT, SIG_DFL);
   if (sig == SIG_EXE) signal(SIGINT, SIG_DFL);
