@@ -8,9 +8,11 @@
 #include "lib/execute/execute.h"
 #include "lib/libft/libft.h"
 #include "lib/parse/parse.h"
-#include "lib/readline/history.h"
-#include "lib/readline/readline.h"
+#include <readline/history.h>
+#include <readline/readline.h>
 #include "lib/tokenize/tokenize.h"
+
+//extern int(*rl_signal_event_hook)();
 
 int rl_signal() {
   environ_add("?=130");
@@ -39,7 +41,7 @@ static char *pretty_readline() {
 
 int minishell() {
   environ_init();
-  rl_signal_event_hook = rl_signal;
+  //rl_signal_event_hook = rl_signal;
   set_signal(SIG_DEFAULT);
   while (1) {
     char *line = pretty_readline();

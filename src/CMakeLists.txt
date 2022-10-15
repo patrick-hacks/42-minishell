@@ -13,5 +13,5 @@ target_link_libraries(minishell
   execute
   environ
   tokenize
-  local_readline
+  readline
 )

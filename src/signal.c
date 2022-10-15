@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 #include "lib/environ/environ.h"
-#include "lib/readline/readline.h"
+#include <readline/readline.h>
 #include "src/minishell.h"
 
 void empty(int signo) {(void) signo;}

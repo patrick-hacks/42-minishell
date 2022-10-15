@@ -13,7 +13,7 @@ int cmd_echo(cmd *c, int *fd) {
     new_line = false;
   }
   while (it) {
-    dprintf(fd[1], it->str);
+    dprintf(fd[1], "%s", it->str);
     it = it->next;
     if (it) dprintf(fd[1], " ");
   }

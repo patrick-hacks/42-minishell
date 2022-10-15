@@ -1,6 +1,6 @@
 #include <fcntl.h>
-#include <readline/readline.h>
 #include <stdio.h>
+#include <readline/readline.h>
 #include <stdlib.h>
 #include <sys/signal.h>
 #include <sys/wait.h>

@@ -1,10 +1,7 @@
-minishell: lib/readline/config.h
+minishell:
 	@mkdir -p build
 	@(cd build && cmake .. && make --no-print-directory)
 	@cp build/minishell minishell
-
-lib/readline/config.h:
-	(cd lib/readline && ./configure)
 
 clean:
 	rm -fr build

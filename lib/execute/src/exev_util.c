@@ -29,7 +29,7 @@ static char *find_correct_path(char *cmd, char **split) {
 char *find_command(char *cmd) {
   if (!cmd[0])
     return 0;
-  char *result;
+  char *result = 0;
   char *paths = environ_get("PATH");
   if (paths) {
     char **split = ft_strsplit(paths, ':');
