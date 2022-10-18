@@ -12,7 +12,8 @@ static void child_exec(cmd *c) {
     execve_or_die(cmd, get_argv(c), g_environ);
   }
   fprintf(stderr, "command not found\n");
-  execve_or_die("/bin/true", get_argv(c), g_environ);
+  exit(127);
+  // execve_or_die("/bin/sh", , g_environ);
 }
 
 void child_run(cmd *c, int *fd) {
