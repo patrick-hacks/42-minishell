@@ -10,7 +10,7 @@ int cmd_pwd(cmd *c, int *fd) {
   char cwd[PATH_MAX];
 
   cwd[0] = '\0';
-  if (getcwd(cwd, PATH_MAX)) {
+  if (getcwd(cwd, PATH_MAX) == NULL) {
     fprintf(stderr, "could not determine directory\n");
     return 1;
   }

@@ -24,8 +24,8 @@ int rl_signal() {
 }
 
 static char *pretty_readline() {
-  char *line = NULL;
-  while (!line || !line[0]) {
+  char *line = "";
+  while (!line[0]) {
     char *ret = environ_get("?");
     char prompt[20];
     ft_strcpy(prompt, "\e[1;32m:) \xE2\x9E\x9C\e[0m ");
@@ -34,6 +34,7 @@ static char *pretty_readline() {
       ft_memcpy(prompt + 7, ret, ft_strlen(ret));
     }
     line = readline(prompt);
+    if (!line) return NULL;
   }
   add_history(line);
   return line;
@@ -45,6 +46,7 @@ int minishell() {
   set_signal(SIG_DEFAULT);
   while (1) {
     char *line = pretty_readline();
+    if (!line) break;
     token *tokens = tokenize(line);
     free(line);
     if (!tokens) continue;

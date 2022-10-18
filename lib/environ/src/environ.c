@@ -13,6 +13,7 @@
 #include "lib/environ/environ.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "lib/libft/libft.h"
 
