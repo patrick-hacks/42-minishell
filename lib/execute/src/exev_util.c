@@ -31,10 +31,14 @@ char *find_command(char *cmd) {
     return 0;
   char *result = 0;
   char *paths = environ_get("PATH");
-  if (paths) {
+  if (paths && ft_strchr(cmd, '/') == NULL) {
     char **split = ft_strsplit(paths, ':');
     result = find_correct_path(cmd, split);
     ft_free_pointer_array((void **)split);
+  } else {
+    if (access(cmd, X_OK) == 0) {
+      result = cmd;
+    }
   }
   return result;
 }

@@ -58,6 +58,7 @@ int minishell() {
     heredoc_cleanup(commands);
     parse_lst_free(&commands);
   }
+  int ret = ft_atoi(environ_get("?"));
   environ_cleanup();
-  return (0);
+  return (ret);
 }

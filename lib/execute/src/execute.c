@@ -81,7 +81,7 @@ void set_pipe(cmd *c, int fd[3]) {
 int execute_cmd(cmd *c) {
   int i = 0;
   int fd[3];
-  int *pids = ft_calloc_or_die(command_count(c) + 1, sizeof(int));
+  int *pids = ft_calloc_or_die(command_count(c) + 1, sizeof(int*));
   while (c != NULL) {
     set_pipe(c, fd);
     if (get_builtin(c->simple_cmd->str)) {
@@ -97,15 +97,17 @@ int execute_cmd(cmd *c) {
 }
 
 int execute_fork(cmd *c) {
-  int fake_fd[3] = {-1, -1, -1};
-  int pid = fork_or_die();
-  if (pid == 0) {
-    execute_cmd(c);
-    get_builtin("exit")(c, fake_fd);
-    exit(0);
+  //int fake_fd[3] = {-1, -1, -1};
+  int *pids = ft_calloc_or_die(2, sizeof(int*));
+  pids[1] = 0;
+  pids[0] = fork_or_die();
+  if (pids[0] == 0) {
+    exit(execute_cmd(c));
+    // get_builtin("exit")(c, fake_fd);
+    // exit(0);
   }
-  waitpid(-1, NULL, 0);
-  return (pid);
+  //waitpid(-1, NULL, 0);
+  return (handle_wait_status(pids));
 }
 
 int execute(cmd *c) {
