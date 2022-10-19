@@ -2,6 +2,20 @@
   "files.associations": {
 	"tokenize.h": "c",
 	"readline.h": "c",
-	"stdlib.h": "c"
+	"stdlib.h": "c",
+	"algorithm": "c",
+	"string": "c",
+	"__bit_reference": "c",
+	"__hash_table": "c",
+	"__split_buffer": "c",
+	"array": "c",
+	"initializer_list": "c",
+	"iterator": "c",
+	"string_view": "c",
+	"unordered_map": "c",
+	"vector": "c",
+	"__locale": "c",
+	"environ.h": "c",
+	"libft.h": "c"
 }
 }

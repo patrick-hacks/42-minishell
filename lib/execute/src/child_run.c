@@ -22,9 +22,9 @@ void child_run(cmd *c, int *fd) {
 	child_exec(c);
 }
 
-void child_run_builtin(cmd *c, int *fd) {
+int child_run_builtin(cmd *c, int *fd) {
   builtin_main main = get_builtin(c->simple_cmd->str);
-  // child_redirect_builtin(c, fd);
+  child_redirect_builtin(c, fd);
   // close_or_die(fd[2]);
-  main(c, fd);
+  return main(c, fd);
 }

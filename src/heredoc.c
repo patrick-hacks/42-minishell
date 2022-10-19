@@ -38,8 +38,7 @@ static void read_to_fd(int fd, char *delim, bool expand) {
     // char *line = readline(">");
     // int len = strlen(line);
     int len = read(STDIN_FILENO, line, max_length - 1);
-    if (len == 0) continue;
-    if (len < 0) break;
+    if (len <= 0) break;
     line[len] = '\0';
     if (ft_strncmp(line, delim, len - 1) == 0 &&
         ft_strlen(delim) == (size_t)(len - 1))
@@ -74,7 +73,7 @@ int heredoc_replace(cmd *c) {
       if (pid == 0) {
         signal(SIGINT, SIG_DFL);
         heredoc_child(c, fd);
-        exit(42);
+        exit(0);
       }
       free(c->redirect_input->str);
       c->redirect_input->str = file_name;

@@ -52,6 +52,6 @@ void execve_or_die(char *cmd, char **argv, char **env) {
   }
   execve(cmd, argv, env);
   perror("execve");
-  execve("/bin/true", argv, env);
-  exit(1);
+  //execve("/bin/true", argv, env);
+  exit(126);
 }

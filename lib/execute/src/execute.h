@@ -18,7 +18,7 @@ char *find_command(char *cmd);
 void child_redirect(cmd *c, int *fd);
 void child_redirect_builtin(cmd *c, int *fd);
 void child_run(cmd *c, int *fd);
-void child_run_builtin(cmd *c, int *fd);
+int child_run_builtin(cmd *c, int *fd);
 
 char *find_command(char *cmd);
 void pipe_or_die(int *fd);

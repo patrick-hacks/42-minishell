@@ -64,9 +64,9 @@ void child_redirect_builtin(cmd *c, int fd[2]) {
   //   close_or_die(fd[0]);
   //   fd[0] = in;
   // }
-  // int out = get_outfile(c->redirect_output);
-  // if (out != -1) {
-  //   close_or_die(fd[1]);
-  //   fd[1] = out;
-  // }
+  int out = get_outfile(c->redirect_output);
+  if (out != -1) {
+    close_or_die(fd[1]);
+    fd[1] = out;
+  }
 }
