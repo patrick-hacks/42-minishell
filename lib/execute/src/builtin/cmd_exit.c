@@ -9,14 +9,17 @@
 int cmd_exit(cmd *c, int *fd) {
   (void) fd;
   int return_code = 0;
-  if (c->simple_cmd->next && c->simple_cmd->next->str) {
-    return_code = ft_atoi(c->simple_cmd->next->str);
+  if (c->simple_cmd->next) {
+    return_code = 255;
+    char *return_str = c->simple_cmd->next->str;
+    if (return_str) {
+      if (return_str[0] >= '0' && return_str[0] <= '9') {
+        return_code = ft_atoi(c->simple_cmd->next->str);
+      }
+    }
   }
   parse_lst_free(&c);
   environ_cleanup();
-  // close_or_die(fd[0]);
-  // close_or_die(fd[1]);
-  // close_or_die(fd[2]);
   if (getenv("DEBUG")) {
     fprintf(stderr, "\e[0;43mexit\e[0m\n");
   }

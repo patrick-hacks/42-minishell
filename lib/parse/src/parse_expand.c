@@ -29,8 +29,9 @@ static void expand_env(token *token) {
     if (token->str[i] == '$') {
       int begin = i;
       while (token->str[i] && token->str[i] != ' ') i++;
-      if (i - begin > 1) {
-        i = replace(&token->str, begin, i) - 1;
+      if (i - begin > 1 || token->flags | TOK_RIGHT_JOIN) {
+        if (token->str[1] != ' ' && token->str[1])
+          i = replace(&token->str, begin, i) - 1;
       }
     }
     i += 1;
