@@ -84,11 +84,13 @@ int execute_cmd(cmd *c) {
   int *pids = ft_calloc_or_die(command_count(c) + 1, sizeof(int *));
   while (c != NULL) {
     set_pipe(c, fd);
-    if (get_builtin(c->simple_cmd->str)) {
-      child_run_builtin(c, fd);
-    } else {
-      pids[i] = child_fork(c, fd);
-      i += 1;
+    if (c->simple_cmd) {
+      if (get_builtin(c->simple_cmd->str)) {
+        child_run_builtin(c, fd);
+      } else {
+        pids[i] = child_fork(c, fd);
+        i += 1;
+      }
     }
     c = c->next;
   }

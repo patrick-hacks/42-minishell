@@ -39,12 +39,9 @@ static bool is_center_valid(token *t) {
 }
 
 static bool is_last_valid(token *t) {
-  if (t->prev && t->prev->flags & TOK_REDIRECT) return false;
   if (t->flags & TOK_WORD) return true;
   return false;
 }
-
-#include <stdio.h>
 
 bool is_token_sequence_valid(token *t) {
   if (!is_first_valid(t)) return false;
