@@ -1,5 +1,7 @@
 #include "src/minishell.h"
 
+#include <readline/history.h>
+#include <readline/readline.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -8,22 +10,23 @@
 #include "lib/execute/execute.h"
 #include "lib/libft/libft.h"
 #include "lib/parse/parse.h"
-#include <readline/history.h>
-#include <readline/readline.h>
 #include "lib/tokenize/tokenize.h"
+#include "lib/get_next_line/get_next_line.h"
 
-//extern int(*rl_signal_event_hook)();
+// extern int(*rl_signal_event_hook)();
 
-int rl_signal() {
-  environ_add("?=130");
-  write(1, "\n", 1);
-  rl_set_prompt("\e[1;31m130\xE2\x9E\x9C\e[0m ");
-  rl_on_new_line();
-  rl_redisplay();
-  return 0;
-}
+// int rl_signal() {
+//   environ_add("?=130");
+//   write(1, "\n", 1);
+//   rl_set_prompt("\e[1;31m130\xE2\x9E\x9C\e[0m ");
+//   rl_on_new_line();
+//   rl_redisplay();
+//   return 0;
+// }
 
 static char *pretty_readline() {
+  set_signal(SIG_READLINE);
+  if (!isatty(0)) return get_next_line(0);
   char *line = "";
   while (!line[0]) {
     char *ret = environ_get("?");
@@ -40,16 +43,24 @@ static char *pretty_readline() {
   return line;
 }
 
+static int bonus(token *tokens) {
+  while (tokens) {
+    if (tokens->flags & (TOK_AND | TOK_OR | TOK_BRACKET))
+      return 1;
+    tokens = tokens->next;
+  }
+  return 0;
+}
+
 int minishell() {
   environ_init();
-  //rl_signal_event_hook = rl_signal;
-  set_signal(SIG_DEFAULT);
   while (1) {
     char *line = pretty_readline();
     if (!line) break;
     token *tokens = tokenize(line);
     free(line);
     if (!tokens) continue;
+    if (bonus(tokens)) continue;
     parse_expand_token(tokens);
     cmd *commands = parse(tokens);
     if (heredoc_replace(commands) == 0) {

@@ -1,13 +1,23 @@
+#include <readline/readline.h>
 #include <signal.h>
 #include <stdio.h>
 #include <termios.h>
 #include <unistd.h>
 
 #include "lib/environ/environ.h"
-#include <readline/readline.h>
 #include "src/minishell.h"
 
-void empty(int signo) {(void) signo;}
+void empty(int signo) { (void)signo; }
+
+void signal_ctlc(int sig) {
+  if (sig == SIGINT) {
+    write(2, "\n", 1);
+    rl_replace_line("", 0);
+    rl_on_new_line();
+    rl_redisplay();
+    environ_add("?=130");
+  }
+}
 
 void sigint_handler_print_newline(int signo) {
   environ_add("?=130");
@@ -17,25 +27,20 @@ void sigint_handler_print_newline(int signo) {
 void set_signal(int sig) {
   signal(SIGQUIT, SIG_DFL);
   // fprintf(stderr, "setting signal mode to %d\n", sig);
-  if (sig == SIG_CHILD) signal(SIGINT, SIG_IGN);
-  if (sig == SIG_DEFAULT) signal(SIGINT, empty);
+  if (sig == SIG_SUBSHELL) signal(SIGINT, SIG_IGN);
+  if (sig == SIG_READLINE) signal(SIGINT, signal_ctlc);
   if (sig == SIG_HEREDOC) signal(SIGINT, sigint_handler_print_newline);
   if (sig == SIG_HEREDOC_CHILD) signal(SIGINT, SIG_DFL);
   if (sig == SIG_EXE) signal(SIGINT, SIG_DFL);
-  // if (sig == SIG_EXE) {
-  //   signal(SIGQUIT, SIG_DFL);
-  //   signal(SIGINT, SIG_DFL);
-  // }
 }
 
-// void set_termios(int mode) {
-//   struct termios term_setting;
+void set_termios(int mode) {
+  struct termios term_setting;
 
-//   tcgetattr(STDOUT_FILENO, &term_setting);
-//   if (mode == MINISHELL_NO_CHILD || mode == MINISHELL_HAS_CHILD ||
-//       mode == HEREDOC_PARENT || mode == HEREDOC_CHILD)
-//     term_setting.c_lflag &= ~(ECHOCTL);
-//   else if (mode == EXECUTE_CHILD)
-//     term_setting.c_lflag |= ECHOCTL;
-//   tcsetattr(STDOUT_FILENO, NONE, &term_setting);
-// }
+  tcgetattr(STDOUT_FILENO, &term_setting);
+  if (mode == 1)
+    term_setting.c_lflag &= ~(ECHOCTL);
+  else
+    term_setting.c_lflag |= ECHOCTL;
+  tcsetattr(STDOUT_FILENO, 0, &term_setting);
+}

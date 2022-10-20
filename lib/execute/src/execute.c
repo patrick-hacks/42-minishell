@@ -6,11 +6,11 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#include "lib/environ/environ.h"
 #include "lib/execute/src/builtin/builtin.h"
 #include "lib/libft/libft.h"
 #include "lib/parse/parse.h"
 #include "lib/tokenize/tokenize.h"
-#include "lib/environ/environ.h"
 
 int wait_children(int *pids) {
   int exit_status;
@@ -81,7 +81,7 @@ void set_pipe(cmd *c, int fd[3]) {
 int execute_cmd(cmd *c) {
   int i = 0;
   int fd[3];
-  int *pids = ft_calloc_or_die(command_count(c) + 1, sizeof(int*));
+  int *pids = ft_calloc_or_die(command_count(c) + 1, sizeof(int *));
   while (c != NULL) {
     set_pipe(c, fd);
     if (get_builtin(c->simple_cmd->str)) {
@@ -97,8 +97,8 @@ int execute_cmd(cmd *c) {
 }
 
 int execute_fork(cmd *c) {
-  //int fake_fd[3] = {-1, -1, -1};
-  int *pids = ft_calloc_or_die(2, sizeof(int*));
+  // int fake_fd[3] = {-1, -1, -1};
+  int *pids = ft_calloc_or_die(2, sizeof(int *));
   pids[1] = 0;
   pids[0] = fork_or_die();
   if (pids[0] == 0) {
@@ -106,15 +106,19 @@ int execute_fork(cmd *c) {
     // get_builtin("exit")(c, fake_fd);
     // exit(0);
   }
-  //waitpid(-1, NULL, 0);
+  // waitpid(-1, NULL, 0);
   return (handle_wait_status(pids));
 }
 
 int execute(cmd *c) {
   if (command_count(c) == 1) {
+    signal(SIGINT, SIG_IGN);
     execute_cmd(c);
+    signal(SIGINT, SIG_DFL);
   } else {
+    signal(SIGINT, SIG_IGN);
     execute_fork(c);
+    signal(SIGINT, SIG_DFL);
   }
   return 0;
 }

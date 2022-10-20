@@ -51,14 +51,16 @@ void parse_expand_token(token *tokens) {
   }
 }
 
-int parse_expand_str(char *str, int max_len) {
+#include <stdio.h>
+
+int parse_expand_str(char **str) {
   int i = 0;
-  while (str[i]) {
-    if (str[i] == '$') {
+  while ((*str)[i]) {
+    if ((*str)[i] == '$') {
       int begin = i;
-      while (str[i] && str[i] != ' ') i++;
-      if (i >= max_len) return 1;
-      i = replace(&str, begin, i) - 1;
+      while ((*str)[i] && ft_strchr(" \t\n\"\'", (*str)[i]) == NULL) i++;
+      printf("replacing %d, %d\n", begin, i);
+      i = replace(str, begin, i) - 1;
     }
     i += 1;
   }

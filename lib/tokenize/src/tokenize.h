@@ -14,8 +14,7 @@ void token_lst_push_back(token **lst, token *new_token);
 
 // Validity checks in tokenize_error
 bool is_range_correct(char *line);
-bool is_redirection_correct(token *t);
-bool is_pipe_correct(token *t);
+bool is_token_sequence_valid(token *t);
 
 void debug_token_print(token *tokens);
 

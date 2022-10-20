@@ -48,4 +48,13 @@ int	environ_set(char *name, char *value)
 	return (status);
 }
 
-void environ_cleanup() {}
+void environ_cleanup() {
+	int i = 0;
+	while (g_environ[i])
+	{
+		free(g_environ[i]);
+		i++;
+	}
+	free(g_environ);
+	g_environ = NULL;
+}

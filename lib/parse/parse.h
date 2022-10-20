@@ -20,7 +20,7 @@ void parse_expand_token(token *tokens);
 /// does not check for Quotes. Should be used to expand variable names in
 /// heredoc.
 /// @param tokens Linked list of tokens
-int parse_expand_str(char *str, int max_len);
+int parse_expand_str(char **str);
 
 /// @brief Frees the whole list of commands. Takes a double pointer to the head of
 /// the list and sets it to NULL to prevent use after free.

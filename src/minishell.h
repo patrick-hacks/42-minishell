@@ -10,12 +10,13 @@ int minishell();
 int heredoc_replace(cmd *c);
 void heredoc_cleanup(cmd *c);
 
-#define SIG_DEFAULT 0
-#define SIG_CHILD 1
+#define SIG_READLINE 0
+#define SIG_SUBSHELL 1
 #define SIG_EXE 2
 #define SIG_HEREDOC 3
 #define SIG_HEREDOC_CHILD 4
 
 void set_signal(int mode);
+void set_termios(int mode);
 
 #endif // SRC_MINISHELL_H_

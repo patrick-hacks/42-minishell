@@ -1,6 +1,6 @@
 #include <fcntl.h>
-#include <stdio.h>
 #include <readline/readline.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <sys/signal.h>
 #include <sys/wait.h>
@@ -8,6 +8,7 @@
 
 #include "lib/environ/environ.h"
 #include "lib/execute/execute.h"
+#include "lib/get_next_line/get_next_line.h"
 #include "lib/libft/libft.h"
 #include "lib/parse/parse.h"
 #include "src/minishell.h"
@@ -30,22 +31,14 @@ static int create_tmpfile(char *filename, int size) {
   return fd;
 }
 
-static void read_to_fd(int fd, char *delim, bool expand) {
-  (void)expand;
-  const int max_length = 65536;
-  char *line = ft_calloc_or_die(1, max_length);
+static void read_to_fd(int fd, char *delim, bool quoted) {
   while (1) {
-    // char *line = readline(">");
-    // int len = strlen(line);
-    int len = read(STDIN_FILENO, line, max_length - 1);
-    if (len <= 0) break;
-    line[len] = '\0';
-    if (ft_strncmp(line, delim, len - 1) == 0 &&
-        ft_strlen(delim) == (size_t)(len - 1))
-      break;
-    write(fd, line, len);
+    char *line = get_next_line(0);
+    if (!line || ft_strncmp(line, delim, ft_strlen(delim)) == 0) break;
+    if (!quoted) parse_expand_str(&line);
+    write(fd, line, ft_strlen(line));
+    free(line);
   }
-  //  free(line);
 }
 
 static void heredoc_child(cmd *c, int fd) {
@@ -67,18 +60,19 @@ int heredoc_replace(cmd *c) {
       char *file_name = ft_calloc_or_die(1, 30);
       int fd = create_tmpfile(file_name, 30);
       int ret;
-      signal(SIGINT, SIG_IGN);
+      set_signal(SIG_HEREDOC);
       int pid = fork();
       if (pid == -1) exit(1);
       if (pid == 0) {
-        signal(SIGINT, SIG_DFL);
+        set_signal(SIG_HEREDOC_CHILD);
+        set_termios(1);
         heredoc_child(c, fd);
         exit(0);
       }
       free(c->redirect_input->str);
       c->redirect_input->str = file_name;
       waitpid(-1, &ret, 0);
-      set_signal(SIG_DEFAULT);
+      set_signal(SIG_READLINE);
       if (WIFSIGNALED(ret) || !WIFEXITED(ret) || WEXITSTATUS(ret) != 0) {
         environ_add("?=130");
         return 1;
