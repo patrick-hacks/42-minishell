@@ -3,10 +3,11 @@
 
 #include "lib/tokenize/src/tokenize.h"
 
-bool is_quote_correct(char *line) {
+bool is_range_correct(char *line) {
   while (*line) {
     if (*line == '\'') line = ft_strchr(line + 1, '\'');
     if (*line == '\"') line = ft_strchr(line + 1, '\"');
+    if (*line == '(') line = ft_strchr(line + 1, ')');
     if (!line) return false;
     line++;
   }

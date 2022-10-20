@@ -4,20 +4,23 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define TOK_WORD 0b1 << 0
+#define TOK_WORD 1 << 0
 
-#define TOK_SINGLE_QUOTED 0b1 << 1
-#define TOK_DOUBLE_QUOTED 0b1 << 2
-#define TOK_LEFT_JOIN 0b1 << 3
-#define TOK_RIGHT_JOIN 0b1 << 4
+#define TOK_SINGLE_QUOTED 1 << 1
+#define TOK_DOUBLE_QUOTED 1 << 2
+#define TOK_LEFT_JOIN 1 << 3
+#define TOK_RIGHT_JOIN 1 << 4
 
-#define TOK_REDIRECT 0b1 << 5
-#define TOK_READ 0b1 << 6
-#define TOK_WRITE 0b1 << 7
-#define TOK_APPEND 0b1 << 8
-#define TOK_HEREDOC 0b1 << 9
+#define TOK_REDIRECT 1 << 5
+#define TOK_READ 1 << 6
+#define TOK_WRITE 1 << 7
+#define TOK_APPEND 1 << 8
+#define TOK_HEREDOC 1 << 9
 
-#define TOK_PIPE 0b1 << 10
+#define TOK_PIPE 1 << 10
+#define TOK_AND 1 << 11
+#define TOK_OR 1 << 12
+#define TOK_BRACKET 1 << 13
 
 /// @brief Token node of a double linked list holding the string and flags set
 /// as bits.

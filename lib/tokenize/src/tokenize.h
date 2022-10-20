@@ -4,16 +4,16 @@
 #include "lib/libft/libft.h"
 #include "lib/tokenize/tokenize.h"
 
-token *get_quote(char *line, int *i);
-token *get_redirect(char *line, int *i);
-token *get_pipe(char *line, int *i);
-token *get_default(char *line, int *i);
+int get_quote(token *tok, char *line, int *i);
+int get_special(token *tok, char *line, int *i);
+int get_range(token *tok, char *line, int *i);
+int get_default(token *tok, char *line, int *i);
 
 // token *token_lst_last(token *lst);
 void token_lst_push_back(token **lst, token *new_token);
 
 // Validity checks in tokenize_error
-bool is_quote_correct(char *line);
+bool is_range_correct(char *line);
 bool is_redirection_correct(token *t);
 bool is_pipe_correct(token *t);
 

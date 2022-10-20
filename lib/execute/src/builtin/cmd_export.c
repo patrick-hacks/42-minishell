@@ -27,5 +27,5 @@ int cmd_export(cmd *c, int *fd) {
     }
     it = it->next;
   }
-  return 1;
+  return error;
 }

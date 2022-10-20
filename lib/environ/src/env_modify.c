@@ -1,6 +1,7 @@
 #include "lib/environ/src/environ.h"
 #include "lib/libft/libft.h"
 #include <stdlib.h>
+#include <limits.h>
 
 int	environ_remove(char *name)
 {
@@ -21,7 +22,7 @@ int	environ_add(char *str)
 
 	if (str == NULL || ft_strchr(str, '=') == NULL)
 		return (1);
-	new_var = ft_strsub_or_die(str, 0, INT32_MAX);
+	new_var = ft_strsub_or_die(str, 0, INT_MAX);
 	old_var = environ_find(str);
 	status = split_replace_str(&g_environ, old_var, new_var);
 	if (status == 1)

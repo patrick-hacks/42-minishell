@@ -1,5 +1,6 @@
 #include "lib/environ/src/environ.h"
 #include "lib/libft/libft.h"
+#include <limits.h>
 
 extern char **environ;
 char **g_environ;
@@ -12,7 +13,7 @@ int environ_init(void) {
   g_environ = ft_calloc_or_die(i + 1, sizeof(char *));
   i = 0;
   while (environ[i]) {
-    g_environ[i] = ft_strsub_or_die(environ[i], 0, INT32_MAX);
+    g_environ[i] = ft_strsub_or_die(environ[i], 0, INT_MAX);
     i++;
   }
   g_environ[i] = NULL;
