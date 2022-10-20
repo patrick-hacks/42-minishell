@@ -17,5 +17,6 @@ bool is_range_correct(char *line);
 bool is_token_sequence_valid(token *t);
 
 void debug_token_print(token *tokens);
+void debug_tokenlist_print(token **tokens);
 
 #endif // LIB_TOKENIZE_SRC_TOKENIZE_H_

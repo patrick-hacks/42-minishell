@@ -8,10 +8,10 @@
 
 #include "lib/environ/environ.h"
 #include "lib/execute/execute.h"
+#include "lib/get_next_line/get_next_line.h"
 #include "lib/libft/libft.h"
 #include "lib/parse/parse.h"
 #include "lib/tokenize/tokenize.h"
-#include "lib/get_next_line/get_next_line.h"
 
 // extern int(*rl_signal_event_hook)();
 
@@ -43,14 +43,15 @@ static char *pretty_readline() {
   return line;
 }
 
-static int bonus(token *tokens) {
-  while (tokens) {
-    if (tokens->flags & (TOK_AND | TOK_OR | TOK_BRACKET))
-      return 1;
-    tokens = tokens->next;
-  }
-  return 0;
-}
+// int execute_token(token *tokens) {
+//   parse_expand_token(tokens);
+//   cmd *commands = parse(tokens);
+//   if (heredoc_replace(commands) == 0) {
+//     execute(commands);
+//   }
+//   heredoc_cleanup(commands);
+//   parse_lst_free(&commands);
+// }
 
 int minishell() {
   environ_init();
@@ -60,14 +61,13 @@ int minishell() {
     token *tokens = tokenize(line);
     free(line);
     if (!tokens) continue;
-    if (bonus(tokens)) continue;
-    parse_expand_token(tokens);
-    cmd *commands = parse(tokens);
-    if (heredoc_replace(commands) == 0) {
-      execute(commands);
+    if (heredoc_replace(tokens) == 0) {
+      token **token_list = tokenize_split(tokens);
+      if (token_list) {
+        execute(token_list);
+      }
     }
-    heredoc_cleanup(commands);
-    parse_lst_free(&commands);
+    heredoc_cleanup(tokens);
   }
   int ret = ft_atoi(environ_get("?"));
   environ_cleanup();

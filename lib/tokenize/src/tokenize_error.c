@@ -8,8 +8,8 @@ bool is_range_correct(char *line) {
   while (*line) {
     if (*line == '\'') line = ft_strchr(line + 1, '\'');
     if (*line == '\"') line = ft_strchr(line + 1, '\"');
-    if (*line == '(') line = ft_strchr(line + 1, ')');
     if (*line == ')') return false;
+    if (*line == '(') line = ft_strchr(line + 1, ')');
     line++;
   }
   return true;
@@ -18,6 +18,7 @@ bool is_range_correct(char *line) {
 static bool is_first_valid(token *t) {
   if (t->flags & TOK_WORD) return true;
   if (t->flags & TOK_REDIRECT) return true;
+  if (t->flags & TOK_OPEN) return true;
   return false;
 }
 
@@ -26,12 +27,14 @@ static bool is_center_valid(token *t) {
     if (t->flags & TOK_WORD) return true;
     return false;
   }
-  if (t->prev->flags & TOK_BRACKET) {
+  if (t->prev->flags & TOK_OPEN) {
+    return is_first_valid(t);
+  }
+  if (t->prev->flags & TOK_CLOSE) {
     if (t->flags & TOK_CONNECTOR) return true;
-    return false;
   }
   if (t->prev->flags & TOK_CONNECTOR) {
-    if (t->flags & TOK_BRACKET) return true;
+    if (t->flags & TOK_OPEN) return true;
     if (t->flags & TOK_WORD) return true;
     return false;
   }
@@ -39,8 +42,8 @@ static bool is_center_valid(token *t) {
 }
 
 static bool is_last_valid(token *t) {
-  if (t->prev && t->prev->flags & TOK_REDIRECT) return false;
   if (t->flags & TOK_WORD) return true;
+  if (t->flags & TOK_CLOSE) return true;
   return false;
 }
 

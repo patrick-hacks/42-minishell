@@ -27,11 +27,12 @@ static const t_token_id token_ids[] = {
     {"||", TOK_OR},
     {"&&", TOK_AND},
     {"|", TOK_PIPE},
+    {"(", TOK_OPEN},
+    {")", TOK_CLOSE},
 };
 static const t_token_range range[] = {
     {'"', '"', TOK_DOUBLE_QUOTED | TOK_WORD},
     {'\'', '\'', TOK_SINGLE_QUOTED | TOK_WORD},
-    {'(', ')', TOK_BRACKET | TOK_WORD},
 };
 
 static int is_joined(char *line, int i) {

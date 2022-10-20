@@ -9,7 +9,6 @@
 // Ranges
 #define TOK_SINGLE_QUOTED (1 << 1)
 #define TOK_DOUBLE_QUOTED (1 << 2)
-#define TOK_BRACKET (1 << 3)
 
 // Joins
 #define TOK_LEFT_JOIN (1 << 4)
@@ -26,6 +25,9 @@
 #define TOK_PIPE (1 << 10)
 #define TOK_AND (1 << 11)
 #define TOK_OR (1 << 12)
+#define TOK_OPEN (1 << 13)
+#define TOK_CLOSE (1 << 14)
+
 #define TOK_CONNECTOR (TOK_PIPE | TOK_AND | TOK_OR)
 
 /// @brief Token node of a double linked list holding the string and flags set
@@ -43,6 +45,8 @@ typedef struct s_token {
 /// @param line Input string
 /// @return Double linked list of tokens
 token *tokenize(char *line);
+
+token **tokenize_split(token *tok);
 
 /// @brief Frees a single token
 /// @param tok Token to be freed

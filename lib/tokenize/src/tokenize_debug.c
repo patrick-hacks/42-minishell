@@ -12,8 +12,8 @@ static void debug_token_flag(token *tokens, int flag) {
 void debug_token_print(token *tokens) {
   printf("\033[1;43m");
   printf(
-      "       String       || Word | Sing | Doub | Brac | Left | Righ | "
-      "Read | Writ | Appe | Here | Pipe |  AND |  OR  |");
+      "       String       || Word | Sing | Doub |      | Left | Righ | "
+      "Read | Writ | Appe | Here | Pipe |  AND |  OR  | Open | Close|");
   printf("\033[0m\n");
   while (tokens) {
     if (tokens->flags & TOK_WORD)
@@ -21,11 +21,20 @@ void debug_token_print(token *tokens) {
     else
       printf("%-20c||", ' ');
     int i = 1;
-    while (i <= TOK_OR) {
+    while (i <= TOK_CLOSE) {
       debug_token_flag(tokens, i);
       i <<= 1;
     }
     tokens = tokens->next;
     printf("\n");
+  }
+}
+
+void debug_tokenlist_print(token **tokens) {
+  printf("\033[1;42m%130c\033[0m\n", ' ');
+  while (*tokens) {
+    debug_token_print(*tokens);
+    printf("\033[1;42m%130c\033[0m\n", ' ');
+    tokens += 1;
   }
 }

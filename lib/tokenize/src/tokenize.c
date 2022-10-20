@@ -37,5 +37,5 @@ token *tokenize(char *line) {
     fprintf(stderr, "What is that supposed to mean?\n");
     environ_set("?", "2");
   }
-  return (tokens);
+  return tokens;
 }

@@ -10,7 +10,7 @@
 #include "lib/execute/execute.h"
 #include "lib/get_next_line/get_next_line.h"
 #include "lib/libft/libft.h"
-#include "lib/parse/parse.h"
+#include "lib/tokenize/tokenize.h"
 #include "src/minishell.h"
 
 static int create_tmpfile(char *filename, int size) {
@@ -41,22 +41,18 @@ static void read_to_fd(int fd, char *delim, bool quoted) {
   }
 }
 
-static void heredoc_child(cmd *c, int fd) {
-  while (c) {
-    if (c->redirect_input && c->redirect_input->flags & TOK_HEREDOC) {
-      char *delim = c->redirect_input->str;
-      read_to_fd(
-          fd, delim,
-          c->redirect_input->flags & (TOK_DOUBLE_QUOTED | TOK_SINGLE_QUOTED));
-      close(fd);
-    }
-    c = c->next;
-  }
+static void heredoc_child(token *t, int fd) {
+  char *delim = t->next->str;
+  read_to_fd(
+      fd, delim,
+      t->next->flags & (TOK_DOUBLE_QUOTED | TOK_SINGLE_QUOTED));
+  close(fd);
+  t = t->next;
 }
 
-int heredoc_replace(cmd *c) {
-  while (c) {
-    if (c->redirect_input && c->redirect_input->flags & TOK_HEREDOC) {
+int heredoc_replace(token *t) {
+  while (t) {
+    if (t->flags & TOK_HEREDOC) {
       char *file_name = ft_calloc_or_die(1, 30);
       int fd = create_tmpfile(file_name, 30);
       int ret;
@@ -66,11 +62,11 @@ int heredoc_replace(cmd *c) {
       if (pid == 0) {
         set_signal(SIG_HEREDOC_CHILD);
         set_termios(1);
-        heredoc_child(c, fd);
+        heredoc_child(t, fd);
         exit(0);
       }
-      free(c->redirect_input->str);
-      c->redirect_input->str = file_name;
+      free(t->next->str);
+      t->next->str = file_name;
       waitpid(-1, &ret, 0);
       set_signal(SIG_READLINE);
       if (WIFSIGNALED(ret) || !WIFEXITED(ret) || WEXITSTATUS(ret) != 0) {
@@ -78,16 +74,16 @@ int heredoc_replace(cmd *c) {
         return 1;
       }
     }
-    c = c->next;
+    t = t->next;
   }
   return 0;
 }
 
-void heredoc_cleanup(cmd *c) {
-  while (c) {
-    if (c->redirect_input && c->redirect_input->flags & TOK_HEREDOC) {
-      remove(c->redirect_input->str);
+void heredoc_cleanup(token *t) {
+  while (t) {
+    if (t->flags & TOK_HEREDOC) {
+      remove(t->next->str);
     }
-    c = c->next;
+    t = t->next;
   }
 }

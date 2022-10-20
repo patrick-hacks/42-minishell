@@ -12,6 +12,8 @@
 #include "lib/parse/parse.h"
 #include "lib/tokenize/tokenize.h"
 
+#include "lib/parse/parse.h"
+
 int wait_children(int *pids) {
   int exit_status;
   exit_status = 0;
@@ -110,15 +112,34 @@ int execute_fork(cmd *c) {
   return (handle_wait_status(pids));
 }
 
-int execute(cmd *c) {
-  if (command_count(c) == 1) {
-    signal(SIGINT, SIG_IGN);
-    execute_cmd(c);
-    signal(SIGINT, SIG_DFL);
-  } else {
-    signal(SIGINT, SIG_IGN);
-    execute_fork(c);
-    signal(SIGINT, SIG_DFL);
+// static int execute_subshell(token **token) {
+
+// }
+
+// static int execute_command(token *tok) {
+//   if (tok->flags & TOK_AND && ft_strcmp(environ_get("?"), "0") != 0) return;
+//   if (tok->flags & TOK_OR && ft_strcmp(environ_get("?"), "0") == 0) return;
+// }
+
+int execute(token **token_list) {
+  while (*token_list) {
+    if ((*token_list)->flags)
+      return true;
+    token_list += 1;
   }
   return 0;
+  // while (end->next && !(end->next->flags & (TOK_AND | TOK_OR | TOK_OPEN))) {
+  //   end = end->next;
+  // }
+  // if (end->next) {
+  //   end = end->next;
+  //   end->prev->next = NULL;
+  // }
+  // parse_expand_token(t);
+  // cmd *c = parse(t);
+  // if (command_count(c) == 1)
+  //   execute_cmd(c);
+  // else
+  //   execute_fork(c);
+  // return execute(end->str);
 }

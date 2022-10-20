@@ -7,8 +7,8 @@
 
 int minishell();
 
-int heredoc_replace(cmd *c);
-void heredoc_cleanup(cmd *c);
+int heredoc_replace(token *c);
+void heredoc_cleanup(token *c);
 
 #define SIG_READLINE 0
 #define SIG_SUBSHELL 1

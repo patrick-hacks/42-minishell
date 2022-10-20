@@ -15,4 +15,4 @@ add_library(execute STATIC
   src/child_redirect.c
 )
 
-target_link_libraries(execute PRIVATE libft environ tokenize)
+target_link_libraries(execute PRIVATE libft environ tokenize parse)
