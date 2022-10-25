@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_modify.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 09:15:11 by pfuchs            #+#    #+#             */
+/*   Updated: 2022/10/25 09:17:57 by pfuchs           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lib/environ/src/environ.h"
 #include "lib/libft/libft.h"
-#include <stdlib.h>
 #include <limits.h>
+#include <stdlib.h>
 
 int	environ_remove(char *name)
 {
@@ -48,8 +60,11 @@ int	environ_set(char *name, char *value)
 	return (status);
 }
 
-void environ_cleanup() {
-	int i = 0;
+void	environ_cleanup(void)
+{
+	int	i;
+
+	i = 0;
 	while (g_environ[i])
 	{
 		free(g_environ[i]);
