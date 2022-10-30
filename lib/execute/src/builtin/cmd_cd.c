@@ -6,7 +6,7 @@
 /*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:15:28 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:51 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/10/30 23:45:48 by pfuchs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	chdir_error(const char *str)
 		return (1);
 	}
 	key_set = ft_calloc_or_die(1, ft_strlen(pwd) + 5);
-	ft_strcpy(key_set, pwd);
 	ft_strlcat(key_set, "PWD=", ft_strlen(pwd) + 5);
+	ft_strlcat(key_set, pwd, ft_strlen(pwd) + 5);
 	environ_add(key_set);
 	free(key_set);
 	return (-1);
