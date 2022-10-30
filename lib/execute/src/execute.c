@@ -6,7 +6,7 @@
 /*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:15:55 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:42 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/10/30 23:34:09 by pfuchs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ int	handle_wait_status(int *pids)
 	else
 		error = WCOREFLAG + WTERMSIG(exit_status);
 	free(pids);
-	buf[10] = "?=";
+	buf[0] = '?';
+	buf[1] = '=';
+	buf[2] = '\0';
 	error_str = ft_itoa(error);
 	ft_strcat(buf, error_str);
 	free(error_str);

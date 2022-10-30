@@ -6,7 +6,7 @@
 /*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 08:34:24 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:11:27 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/10/30 23:34:39 by pfuchs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ char	*get_next_line(int fd)
 	static char	*data[1030];
 	char		*line;
 
-	data[1030] = {NULL};
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	data[fd] = read_until_new_line(fd, data[fd]);

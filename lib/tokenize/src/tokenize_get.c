@@ -6,7 +6,7 @@
 /*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:44 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:31 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/10/30 23:39:07 by pfuchs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,21 @@ typedef struct s_token_range
 }							t_token_range;
 
 // As these are static const they are not concidered "global" by the norm
-static const char			*meta_chars = "\'\"|<>()& \n\t";
-static const char			*meta_join = "|<>()& \n\t";
+static const char			*meta_chars = "\'\"|<> \n\t";
+static const char			*meta_join = "|<> \n\t";
 static const t_token_id		token_ids[] = {
 {">>", TOK_APPEND},
 {">", TOK_WRITE},
 {"<<", TOK_HEREDOC},
 {"<", TOK_READ},
-{"||", TOK_OR},
-{"&&", TOK_AND},
+//{"||", TOK_OR},
+//{"&&", TOK_AND},
 {"|", TOK_PIPE},
 };
 static const t_token_range	range[] = {
 	{'"', '"', TOK_DOUBLE_QUOTED | TOK_WORD},
 	{'\'', '\'', TOK_SINGLE_QUOTED | TOK_WORD},
-	{'(', ')', TOK_BRACKET | TOK_WORD},
+//	{'(', ')', TOK_BRACKET | TOK_WORD},
 };
 
 static int	is_joined(char *line, int i)
