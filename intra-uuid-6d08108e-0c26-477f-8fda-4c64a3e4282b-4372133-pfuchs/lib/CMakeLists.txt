@@ -1,0 +1,12 @@
+add_subdirectory(environ)
+add_subdirectory(execute)
+add_subdirectory(libft)
+add_subdirectory(parse)
+add_subdirectory(tokenize)
+add_subdirectory(get_next_line)
+# set(OLDFLAGS "${CMAKE_C_FLAGS}")
+# set(CMAKE_C_FLAGS "")
+# add_subdirectory(readline)
+# set(CMAKE_C_FLAGS OLDFLAGS)
+
+# target_include_directories(local_readline PUBLIC ".")
