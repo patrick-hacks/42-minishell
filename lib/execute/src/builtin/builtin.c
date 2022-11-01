@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:15:24 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:52 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 06:13:43 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,30 @@
 typedef struct s_command_function_pair
 {
 	char							*name;
-	builtin_main					function;
-}									command_function_pair;
+	t_builtin_main					function;
+}									t_command_function_pair;
 
-int									cmd_cd(cmd *c, int *fd);
-int									cmd_echo(cmd *c, int *fd);
-int									cmd_env(cmd *c, int *fd);
-int									cmd_exit(cmd *c, int *fd);
-int									cmd_export(cmd *c, int *fd);
-int									cmd_pwd(cmd *c, int *fd);
-int									cmd_unset(cmd *c, int *fd);
+int									cmd_cd(t_cmd *c, int *fd);
+int									cmd_echo(t_cmd *c, int *fd);
+int									cmd_env(t_cmd *c, int *fd);
+int									cmd_exit(t_cmd *c, int *fd);
+int									cmd_export(t_cmd *c, int *fd);
+int									cmd_pwd(t_cmd *c, int *fd);
+int									cmd_unset(t_cmd *c, int *fd);
 
-static const command_function_pair	commands[] = {
-	{"cd", cmd_cd}, {"echo", cmd_echo}, {"env", cmd_env}, {"exit", cmd_exit},
-		{"export", cmd_export}, {"pwd", cmd_pwd}, {"unset", cmd_unset}};
+static const t_command_function_pair	g_commands[] = {
+{"cd", cmd_cd}, {"echo", cmd_echo}, {"env", cmd_env}, {"exit", cmd_exit},
+{"export", cmd_export}, {"pwd", cmd_pwd}, {"unset", cmd_unset}};
 
-builtin_main	get_builtin(char *command)
+t_builtin_main	get_builtin(char *command)
 {
 	int	i;
 
 	i = 0;
-	while (i < (int)(sizeof(commands) / sizeof(commands[0])))
+	while (i < (int)(sizeof(g_commands) / sizeof(g_commands[0])))
 	{
-		if (ft_strncmp(command, commands[i].name, 20) == 0)
-			return (commands[i].function);
+		if (ft_strncmp(command, g_commands[i].name, 20) == 0)
+			return (g_commands[i].function);
 		i += 1;
 	}
 	return (NULL);

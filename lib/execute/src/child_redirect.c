@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   child_redirect.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:15:46 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:45 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 06:06:02 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib/execute/src/execute.h"
+#include "lib/execute/src/p_execute.h"
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-static int	get_infile(token *input)
+static int	get_infile(t_token *input)
 {
 	int	fd;
 
@@ -35,7 +35,7 @@ static int	get_infile(token *input)
 	return (fd);
 }
 
-static int	get_outfile(token *output)
+static int	get_outfile(t_token *output)
 {
 	int	fd;
 
@@ -57,7 +57,7 @@ static int	get_outfile(token *output)
 	return (fd);
 }
 
-void	child_redirect(cmd *c, int fd[2])
+void	child_redirect(t_cmd *c, int fd[2])
 {
 	int	in;
 	int	out;
@@ -87,17 +87,12 @@ void	child_redirect(cmd *c, int fd[2])
 }
 
 // I think they dont need input
-void	child_redirect_builtin(cmd *c, int fd[2])
+void	child_redirect_builtin(t_cmd *c, int fd[2])
 {
 	int	out;
 
 	(void)c;
 	(void)fd;
-	// int in = get_infile(c->redirect_input);
-	// if (in != -1) {
-	//   close_or_die(fd[0]);
-	//   fd[0] = in;
-	// }
 	out = get_outfile(c->redirect_output);
 	if (out != -1)
 	{

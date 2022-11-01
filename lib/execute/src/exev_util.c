@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exev_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:00 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:41 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 06:05:33 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "lib/environ/environ.h"
-#include "lib/execute/src/execute.h"
+#include "lib/execute/src/p_execute.h"
 #include "lib/libft/libft.h"
 #include <fcntl.h>
 #include <limits.h> // PATH_MAX
@@ -68,9 +67,9 @@ char	*find_command(char *cmd)
 	return (result);
 }
 
-int	get_argc(cmd *command)
+int	get_argc(t_cmd *command)
 {
-	token	*it;
+	t_token	*it;
 	int		i;
 
 	it = command->simple_cmd;
@@ -83,10 +82,10 @@ int	get_argc(cmd *command)
 	return (i);
 }
 
-char	**get_argv(cmd *c)
+char	**get_argv(t_cmd *c)
 {
 	char	**argv;
-	token	*it;
+	t_token	*it;
 	int		i;
 
 	argv = ft_calloc_or_die(get_argc(c) + 1, sizeof(char *));

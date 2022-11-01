@@ -2,6 +2,17 @@
 	"files.associations": {
 		"*.h": "c",
 		"*.c": "c",
+		"__string": "c",
+		"__tuple": "c",
+		"algorithm": "c",
+		"bitset": "c",
+		"cmath": "c",
+		"functional": "c",
+		"iterator": "c",
+		"locale": "c",
+		"ratio": "c",
+		"string": "c",
+		"vector": "c"
 	},
 	"[c]": {
 		"editor.defaultFormatter": "keyhr.42-c-format",

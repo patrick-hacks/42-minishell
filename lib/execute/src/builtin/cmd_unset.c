@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:15:43 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:46 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 06:03:19 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib/environ/environ.h"
-#include "lib/execute/src/execute.h"
+#include "lib/execute/src/p_execute.h"
 
-int	cmd_unset(cmd *c, int *fd)
+int	cmd_unset(t_cmd *c, int *fd)
 {
-	token	*it;
+	t_token	*it;
 
 	(void)fd;
 	it = c->simple_cmd;

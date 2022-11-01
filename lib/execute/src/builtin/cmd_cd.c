@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:15:28 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/30 23:45:48 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 06:01:47 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib/environ/environ.h"
-#include "lib/execute/src/execute.h"
+#include "lib/execute/src/p_execute.h"
 #include "lib/libft/libft.h"
 #include <limits.h> // PATH_MAX
 #include <stdio.h>
@@ -43,9 +43,9 @@ int	chdir_error(const char *str)
 	return (-1);
 }
 
-int	cmd_cd(cmd *c, int *fd)
+int	cmd_cd(t_cmd *c, int *fd)
 {
-	token		*first;
+	t_token		*first;
 	const char	*home;
 
 	(void)fd;

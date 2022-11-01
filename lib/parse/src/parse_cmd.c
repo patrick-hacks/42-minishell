@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:14 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:39 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 06:27:29 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib/libft/libft.h"
-#include "lib/parse/src/parse.h"
+#include "lib/parse/src/p_parse.h"
 #include "lib/tokenize/tokenize.h"
 #include <stdlib.h>
 
-int	extract_redirection(cmd *cmd)
+int	extract_redirection(t_cmd *cmd, t_token *tok)
 {
-	token	*tok;
-	token	*name;
-	token	*next;
+	t_token	*name;
+	t_token	*next;
 
 	tok = cmd->simple_cmd;
 	while (tok)
@@ -40,20 +39,18 @@ int	extract_redirection(cmd *cmd)
 			tok = next;
 		}
 		else
-		{
 			tok = tok->next;
-		}
 	}
 	return (0);
 }
 
-cmd	*convert_to_command(token *tok)
+t_cmd	*convert_to_command(t_token *tok)
 {
-	cmd		*head;
-	cmd		*cmd_it;
-	token	*next;
+	t_cmd		*head;
+	t_cmd		*cmd_it;
+	t_token		*next;
 
-	head = ft_calloc_or_die(1, sizeof(cmd));
+	head = ft_calloc_or_die(1, sizeof(t_cmd));
 	head->simple_cmd = tok;
 	cmd_it = head;
 	while (tok != NULL)
@@ -66,7 +63,7 @@ cmd	*convert_to_command(token *tok)
 			if (tok->next)
 				tok->next->prev = NULL;
 			token_free(tok);
-			cmd_it->next = ft_calloc_or_die(1, sizeof(cmd));
+			cmd_it->next = ft_calloc_or_die(1, sizeof(t_cmd));
 			cmd_it->next->prev = cmd_it;
 			cmd_it = cmd_it->next;
 			cmd_it->simple_cmd = next;

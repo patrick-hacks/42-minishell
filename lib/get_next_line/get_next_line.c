@@ -6,7 +6,7 @@
 /*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 08:34:24 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/11/01 04:33:18 by azakizad         ###   ########.fr       */
+/*   Updated: 2022/11/01 05:45:00 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stddef.h>
-
 
 static char	*strjoin(char *str1, char *str2, int str2len)
 {

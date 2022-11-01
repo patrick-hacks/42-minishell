@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_pwd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:15:41 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:47 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 06:03:06 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib/execute/src/execute.h"
+#include "lib/execute/src/p_execute.h"
 #include <limits.h> // PATH_MAX
 #include <stdio.h>  // printf
 #include <unistd.h> // getcwd
 
-int	cmd_pwd(cmd *c, int *fd)
+int	cmd_pwd(t_cmd *c, int *fd)
 {
+	char	cwd[PATH_MAX];
+
 	(void)c;
 	(void)fd;
-	char cwd[PATH_MAX];
-
 	cwd[0] = '\0';
 	if (getcwd(cwd, PATH_MAX) == NULL)
 	{

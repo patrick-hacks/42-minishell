@@ -6,15 +6,15 @@
 /*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:17:09 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/30 15:20:51 by azakizad         ###   ########.fr       */
+/*   Updated: 2022/11/01 04:47:25 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib/environ/environ.h"
 #include "src/minishell.h"
+#include <stdio.h>
 #include <readline/readline.h>
 #include <signal.h>
-#include <stdio.h>
 #include <termios.h>
 #include <unistd.h>
 

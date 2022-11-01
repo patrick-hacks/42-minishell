@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_or_die.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:15:52 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:44 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 05:29:38 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib/execute/src/execute.h"
+#include "lib/execute/src/p_execute.h"
 #include "lib/libft/libft.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -73,17 +73,16 @@ void	close_or_die(int fd)
 
 void	execve_or_die(char *cmd, char **argv, char **env)
 {
-		char sys[200];
+	char	sys[200];
 
 	if (getenv("DEBUG"))
 	{
 		snprintf(sys, 200, "echo '%1$d' >&2; ls -l /proc/%1$d/fd >&2",
-				getpid());
+			getpid());
 		system(sys);
 		sleep(1);
 	}
 	execve(cmd, argv, env);
 	perror("execve");
-	//execve("/bin/true", argv, env);
 	exit(126);
 }

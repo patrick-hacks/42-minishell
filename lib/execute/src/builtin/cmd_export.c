@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:15:39 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:47 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 06:02:45 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib/environ/environ.h"
-#include "lib/execute/src/execute.h"
+#include "lib/execute/src/p_execute.h"
 #include <stdio.h>
 
 static int	is_valid_argument(char *arg)
@@ -28,9 +28,9 @@ static int	is_valid_argument(char *arg)
 	return (1);
 }
 
-int	cmd_export(cmd *c, int *fd)
+int	cmd_export(t_cmd *c, int *fd)
 {
-	token	*it;
+	t_token	*it;
 	int		error;
 
 	(void)fd;

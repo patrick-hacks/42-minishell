@@ -6,7 +6,7 @@
 /*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:17:06 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/30 15:42:09 by azakizad         ###   ########.fr       */
+/*   Updated: 2022/11/01 06:07:18 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 int		minishell(void);
 
-int		heredoc_replace(cmd *c);
-void	heredoc_cleanup(cmd *c);
+int		heredoc_replace(t_cmd *c);
+void	heredoc_cleanup(t_cmd *c);
 
 # define SIG_READLINE 0
 # define SIG_SUBSHELL 1

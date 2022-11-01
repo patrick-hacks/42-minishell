@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:30 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:34 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 06:12:51 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIB_PARSE_PARSE_H_
-# define LIB_PARSE_PARSE_H_
+#ifndef PARSE_H
+# define PARSE_H
 
 # include "lib/tokenize/tokenize.h"
 
 typedef struct s_cmd
 {
-	token			*simple_cmd;
-	token			*redirect_input;
-	token			*redirect_output;
+	t_token			*simple_cmd;
+	t_token			*redirect_input;
+	t_token			*redirect_output;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
-}					cmd;
+}					t_cmd;
 
-cmd					*parse(token *token_lst);
+t_cmd				*parse(t_token *token_lst);
 /// @brief Expands the unescaped environment names in the token strings.
 /// @param tokens Linked list of tokens
-void				parse_expand_token(token *tokens);
+void				parse_expand_token(t_token *tokens);
 
 /// @brief Expands ALL environment variables in the input string. WARNING: this
 /// does not check for Quotes. Should be used to expand variable names in
@@ -35,11 +35,12 @@ void				parse_expand_token(token *tokens);
 /// @param tokens Linked list of tokens
 int					parse_expand_str(char **str);
 
-/// @brief Frees the whole list of commands. Takes a double pointer to the head of
+/// @brief Frees the whole list of commands.
+/// Takes a double pointer to the head of
 /// the list and sets it to NULL to prevent use after free.
 /// @param head Head of the list
-void				parse_lst_free(cmd **c);
+void				parse_lst_free(t_cmd **c);
 
-void				debug_cmd_print(cmd *command);
+void				debug_cmd_print(t_cmd *command);
 
 #endif // LIB_PARSE_PARSE_H_

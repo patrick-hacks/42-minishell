@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_modify.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:15:11 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:57 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 05:09:48 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib/environ/src/environ.h"
+#include "lib/environ/src/p_environ.h"
 #include "lib/libft/libft.h"
 #include <limits.h>
 #include <stdlib.h>

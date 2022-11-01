@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:42 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:32 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 06:43:20 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib/tokenize/src/tokenize.h"
+#include "lib/tokenize/src/p_tokenize.h"
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 bool	is_range_correct(char *line)
 {
@@ -22,18 +23,20 @@ bool	is_range_correct(char *line)
 	{
 		if (*line == '\'')
 			line = ft_strchr(line + 1, '\'');
-		if (*line == '\"')
+		else if (*line == '\"')
 			line = ft_strchr(line + 1, '\"');
-		if (*line == '(')
+		else if (*line == '(')
 			line = ft_strchr(line + 1, ')');
-		if (*line == ')')
+		else if (*line == ')')
+			return (false);
+		if (!line)
 			return (false);
 		line++;
 	}
 	return (true);
 }
 
-static bool	is_first_valid(token *t)
+static bool	is_first_valid(t_token *t)
 {
 	if (t->flags & TOK_WORD)
 		return (true);
@@ -42,7 +45,7 @@ static bool	is_first_valid(token *t)
 	return (false);
 }
 
-static bool	is_center_valid(token *t)
+static bool	is_center_valid(t_token *t)
 {
 	if (t->prev->flags & TOK_REDIRECT)
 	{
@@ -67,14 +70,14 @@ static bool	is_center_valid(token *t)
 	return (true);
 }
 
-static bool	is_last_valid(token *t)
+static bool	is_last_valid(t_token *t)
 {
 	if (t->flags & TOK_WORD)
 		return (true);
 	return (false);
 }
 
-bool	is_token_sequence_valid(token *t)
+bool	is_token_sequence_valid(t_token *t)
 {
 	if (!is_first_valid(t))
 		return (false);

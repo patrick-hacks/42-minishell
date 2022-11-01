@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_debug.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:35 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:33 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 05:54:54 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib/tokenize/src/tokenize.h"
+#include "lib/tokenize/src/p_tokenize.h"
 #include <stdio.h>
 
-static void	debug_token_flag(token *tokens, int flag)
+static void	debug_token_flag(t_token *tokens, int flag)
 {
 	if (tokens->flags & flag)
 		printf(" \033[1;41m    \033[0m |");
@@ -21,7 +21,7 @@ static void	debug_token_flag(token *tokens, int flag)
 		printf("      |");
 }
 
-void	debug_token_print(token *tokens)
+void	debug_token_print(t_token *tokens)
 {
 	int	i;
 

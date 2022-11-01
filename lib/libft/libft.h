@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 06:46:08 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/05/03 16:07:56 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 06:14:50 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int			ft_atoi(const char *str);
 // Allocates memory for "num" items with "size", initialises to 0
 void		*ft_calloc(size_t nitems, size_t size);
 void		*ft_calloc_or_die(size_t nitems, size_t size);
-
 
 // =============================================================================
 //									string
@@ -101,7 +100,7 @@ char		*ft_strdup(const char *str);
 
 // Returns a freeable copy of str starting at start with size len
 char		*ft_strsub(const char *str, unsigned int start, size_t len);
-char    *ft_strsub_or_die(char const *str, unsigned int start, size_t n);
+char		*ft_strsub_or_die(char const *str, unsigned int start, size_t n);
 
 // Returns a freeable string which is the concatination of str1 and str2
 char		*ft_strjoin(const char *str1, char const *str2);

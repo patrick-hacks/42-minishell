@@ -6,7 +6,7 @@
 /*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:17:04 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/30 15:19:52 by azakizad         ###   ########.fr       */
+/*   Updated: 2022/11/01 06:08:36 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 #include "lib/parse/parse.h"
 #include "lib/tokenize/tokenize.h"
 #include "src/minishell.h"
+#include <stdio.h>
 #include <readline/history.h>
 #include <readline/readline.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -61,7 +61,7 @@ static char	*pretty_readline(void)
 	return (line);
 }
 
-static int	bonus(token *tokens)
+static int	bonus(t_token *tokens)
 {
 	while (tokens)
 	{
@@ -75,8 +75,8 @@ static int	bonus(token *tokens)
 int	minishell(void)
 {
 	char	*line;
-	token	*tokens;
-	cmd		*commands;
+	t_token	*tokens;
+	t_cmd	*commands;
 	int		ret;
 
 	environ_init();
@@ -87,16 +87,12 @@ int	minishell(void)
 			break ;
 		tokens = tokenize(line);
 		free(line);
-		if (!tokens)
-			continue ;
-		if (bonus(tokens))
+		if (!tokens || bonus(tokens))
 			continue ;
 		parse_expand_token(tokens);
 		commands = parse(tokens);
 		if (heredoc_replace(commands) == 0)
-		{
 			execute(commands);
-		}
 		heredoc_cleanup(commands);
 		parse_lst_free(&commands);
 	}

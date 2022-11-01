@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environ.h                                          :+:      :+:    :+:   */
+/*   p_environ.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:15:18 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:54 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 05:11:16 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIB_ENVIRON_SRC_ENVIRON_H_
-# define LIB_ENVIRON_SRC_ENVIRON_H_
+#ifndef P_ENVIRON_H
+# define P_ENVIRON_H
 
 # include "lib/environ/environ.h"
 # include <stdlib.h>

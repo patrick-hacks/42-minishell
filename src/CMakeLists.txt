@@ -1,6 +1,7 @@
 add_executable(minishell
   main.c
   heredoc.c
+  heredoc_2.c
   minishell.c
   minishell.h
   signal.c

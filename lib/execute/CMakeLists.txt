@@ -9,6 +9,7 @@ add_library(execute STATIC
   src/builtin/cmd_pwd.c
   src/builtin/cmd_unset.c
   src/execute.c
+  src/execute2.c
   src/exec_or_die.c
   src/exev_util.c
   src/child_run.c

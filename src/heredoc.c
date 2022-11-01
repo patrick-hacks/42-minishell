@@ -6,7 +6,7 @@
 /*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:59 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/30 15:18:24 by azakizad         ###   ########.fr       */
+/*   Updated: 2022/11/01 06:25:20 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #include "lib/parse/parse.h"
 #include "src/minishell.h"
 #include <fcntl.h>
-#include <readline/readline.h>
 #include <stdio.h>
+#include <readline/readline.h>
 #include <stdlib.h>
 #include <sys/signal.h>
 #include <sys/wait.h>
@@ -66,7 +66,7 @@ static void	read_to_fd(int fd, char *delim, bool quoted)
 	}
 }
 
-static void	heredoc_child(cmd *c, int fd)
+void	heredoc_child(t_cmd *c, int fd)
 {
 	char	*delim;
 
@@ -85,7 +85,10 @@ static void	heredoc_child(cmd *c, int fd)
 	}
 }
 
-int	heredoc_replace(cmd *c)
+void	heredoc_replace_helper(t_cmd *c, char *file_name, int *ret);
+void	heredoc_replace_helper_child(t_cmd *c, int fd);
+
+int	heredoc_replace(t_cmd *c)
 {
 	char	*file_name;
 	int		fd;
@@ -100,19 +103,9 @@ int	heredoc_replace(cmd *c)
 			fd = create_tmpfile(file_name, 30);
 			set_signal(SIG_HEREDOC);
 			pid = fork();
-			if (pid == -1)
-				exit(1);
 			if (pid == 0)
-			{
-				set_signal(SIG_HEREDOC_CHILD);
-				set_termios(1);
-				heredoc_child(c, fd);
-				exit(0);
-			}
-			free(c->redirect_input->str);
-			c->redirect_input->str = file_name;
-			waitpid(-1, &ret, 0);
-			set_signal(SIG_READLINE);
+				heredoc_replace_helper_child(c, fd);
+			heredoc_replace_helper(c, file_name, &ret);
 			if (WIFSIGNALED(ret) || !WIFEXITED(ret) || WEXITSTATUS(ret) != 0)
 			{
 				environ_add("?=130");
@@ -124,7 +117,7 @@ int	heredoc_replace(cmd *c)
 	return (0);
 }
 
-void	heredoc_cleanup(cmd *c)
+void	heredoc_cleanup(t_cmd *c)
 {
 	while (c)
 	{

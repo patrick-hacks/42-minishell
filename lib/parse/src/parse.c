@@ -3,29 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:25 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:35 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 06:27:12 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib/parse/src/parse.h"
+#include "lib/parse/src/p_parse.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-cmd	*parse(token *tok)
+t_cmd	*parse(t_token *tok)
 {
-	cmd	*head;
-	cmd	*it;
+	t_cmd	*head;
+	t_cmd	*it;
 
-	// remove_empty(&tok);
 	word_join(&tok);
 	head = convert_to_command(tok);
 	it = head;
 	while (it)
 	{
-		if (extract_redirection(it))
+		if (extract_redirection(it, tok))
 		{
 			fprintf(stderr, "no breaking please\n");
 			return (0);

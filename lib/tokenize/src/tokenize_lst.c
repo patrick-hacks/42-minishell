@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_lst.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:47 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:31 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 05:57:31 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib/tokenize/src/tokenize.h"
+#include "lib/tokenize/src/p_tokenize.h"
 #include <stdlib.h>
 
-void	token_lst_push_back(token **lst, token *new_token)
+void	token_lst_push_back(t_token **lst, t_token *new_token)
 {
-	token	*it;
+	t_token	*it;
 
 	it = *lst;
 	new_token->next = NULL;
@@ -35,7 +35,7 @@ void	token_lst_push_back(token **lst, token *new_token)
 	it = *lst;
 }
 
-token	*token_lst_remove(token **head, token *remove)
+t_token	*token_lst_remove(t_token **head, t_token *remove)
 {
 	if (head && remove == *head)
 	{
@@ -49,16 +49,16 @@ token	*token_lst_remove(token **head, token *remove)
 	return (remove);
 }
 
-void	token_free(token *tok)
+void	token_free(t_token *tok)
 {
 	free(tok->str);
 	free(tok);
 }
 
-void	token_lst_free(token **head)
+void	token_lst_free(t_token **head)
 {
-	token	*it;
-	token	*next;
+	t_token	*it;
+	t_token	*next;
 
 	it = *head;
 	while (it)

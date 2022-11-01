@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_expand.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:18 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:38 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 06:31:12 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-static int	replace(char **str_pointer, int begin, int end)
+int	replace(char **str_pointer, int begin, int end)
 {
 	char	*str;
 	char	tmp;
@@ -43,7 +43,7 @@ static int	replace(char **str_pointer, int begin, int end)
 	return (begin + ft_strlen(replacement));
 }
 
-static void	expand_env(token *token)
+void	expand_env(t_token *token)
 {
 	int	i;
 	int	begin;
@@ -56,24 +56,22 @@ static void	expand_env(token *token)
 			begin = i;
 			while (token->str[i] && token->str[i] != ' ')
 				i++;
-			if (token->flags & TOK_RIGHT_JOIN &&
-				!(token->flags & TOK_DOUBLE_QUOTED))
+			if (token->flags & TOK_RIGHT_JOIN
+				&& !(token->flags & TOK_DOUBLE_QUOTED))
 			{
 				i = replace(&token->str, begin, i) - 1;
 			}
 			else
 			{
 				if (i - begin > 1 && (token->str[1] != ' ' || token->str[1]))
-				{
 					i = replace(&token->str, begin, i) - 1;
-				}
 			}
 		}
 		i += 1;
 	}
 }
 
-static int	is_same_wildcard(char *wildcard_str, char *str)
+int	is_same_wildcard(char *wildcard_str, char *str)
 {
 	if (!*str && !*wildcard_str)
 		return (1);
@@ -92,9 +90,9 @@ static int	is_same_wildcard(char *wildcard_str, char *str)
 	return (0);
 }
 
-static void	remove_token(token *token_list)
+void	remove_token(t_token *token_list)
 {
-	token	*remove;
+	t_token	*remove;
 
 	remove = token_list->next;
 	free(token_list->str);
@@ -107,79 +105,15 @@ static void	remove_token(token *token_list)
 	free(remove);
 }
 
-static void	insert_token(token *token_list, char *str)
+void	insert_token(t_token *token_list, char *str)
 {
-	token	*new_token;
+	t_token	*new_token;
 
-	new_token = ft_calloc_or_die(1, (sizeof(token)));
+	new_token = ft_calloc_or_die(1, (sizeof(t_token)));
 	new_token->str = ft_strdup(str);
 	new_token->next = token_list->next;
 	if (new_token->next)
 		new_token->next->prev = new_token;
 	new_token->prev = token_list;
 	token_list->next = new_token;
-}
-
-static void	expand_star(token *token)
-{
-	DIR				*d;
-	bool			expanded;
-	struct dirent	*dir;
-
-	if (ft_strchr(token->str, '*') == NULL)
-		return ;
-	if (environ_get("PWD") == NULL)
-		return ;
-	d = opendir(environ_get("PWD"));
-	if (!d)
-		return ;
-	expanded = false;
-	dir = readdir(d);
-	while (dir)
-	{
-		if (dir->d_name[0] != '.' && is_same_wildcard(token->str, dir->d_name))
-		{
-			insert_token(token, dir->d_name);
-			expanded = true;
-		}
-		dir = readdir(d);
-	}
-	if (expanded)
-		remove_token(token);
-}
-
-void	parse_expand_token(token *tokens)
-{
-	token	*it;
-
-	it = tokens;
-	while (it != NULL)
-	{
-		if ((it->flags & TOK_WORD) && !(it->flags & TOK_SINGLE_QUOTED))
-		{
-			expand_env(it);
-			expand_star(it);
-		}
-		it = it->next;
-	}
-}
-
-int	parse_expand_str(char **str)
-{
-	int	i;
-	int	begin;
-
-	i = 0;
-	while ((*str)[i])
-	{
-		if ((*str)[i] == '$')
-		{
-			begin = i;
-			while ((*str)[i] && ft_strchr(" \t\n\"\'", (*str)[i]) == NULL)
-				i++;
-			i = replace(str, begin, i) - 1;
-		}
-		i += 1;
-	}
-	return (0);
 }

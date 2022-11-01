@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parse_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:20 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:37 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 05:46:38 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib/libft/libft.h"
-#include "lib/parse/src/parse.h"
+#include "lib/parse/src/p_parse.h"
 #include "lib/tokenize/tokenize.h"
 #include <stdlib.h>
 
-void	cmd_free(cmd *c)
+void	cmd_free(t_cmd *c)
 {
 	if (c->simple_cmd != NULL)
 		token_lst_free(&c->simple_cmd);
@@ -26,10 +26,10 @@ void	cmd_free(cmd *c)
 	free(c);
 }
 
-void	parse_lst_free(cmd **c)
+void	parse_lst_free(t_cmd **c)
 {
-	cmd	*it;
-	cmd	*next;
+	t_cmd	*it;
+	t_cmd	*next;
 
 	it = *c;
 	while (it)

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   environ.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:15:20 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:53 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 05:11:22 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIB_ENVIRON_ENVIRON_H_
-# define LIB_ENVIRON_ENVIRON_H_
+#ifndef ENVIRON_H
+# define ENVIRON_H
 
 extern char	**g_environ;
 

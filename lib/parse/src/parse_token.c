@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parse_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:22 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:36 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 06:06:53 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib/libft/libft.h"
-#include "lib/parse/src/parse.h"
+#include "lib/parse/src/p_parse.h"
 #include "lib/tokenize/tokenize.h"
 #include <stdlib.h>
 
-void	remove_empty(token **head)
+void	remove_empty(t_token **head)
 {
-	token	*it;
-	token	*next;
+	t_token	*it;
+	t_token	*next;
 
 	it = *head;
 	while (it)
@@ -32,9 +32,9 @@ void	remove_empty(token **head)
 	}
 }
 
-void	word_join(token **head)
+void	word_join(t_token **head)
 {
-	token	*it;
+	t_token	*it;
 	char	*new_str;
 
 	it = *head;

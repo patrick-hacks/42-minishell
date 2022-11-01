@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parse_debug.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:16 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:38 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/11/01 06:06:32 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib/parse/src/parse.h"
+#include "lib/parse/src/p_parse.h"
 #include <stdio.h>
 
-static void	debug_cmd_redirect(token *redir)
+static void	debug_cmd_redirect(t_token *redir)
 {
 	while (redir)
 	{
@@ -36,9 +36,9 @@ static void	debug_cmd_redirect(token *redir)
 	}
 }
 
-void	debug_cmd_print(cmd *command)
+void	debug_cmd_print(t_cmd *command)
 {
-	token	*it;
+	t_token	*it;
 
 	printf("\033[1;43m");
 	printf("%-100s", "       Commands");
