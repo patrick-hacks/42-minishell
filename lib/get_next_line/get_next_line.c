@@ -6,7 +6,7 @@
 /*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 08:34:24 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/30 15:10:48 by azakizad         ###   ########.fr       */
+/*   Updated: 2022/11/01 04:33:18 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ char	*get_next_line(int fd)
 	static char	*data[1030];
 	char		*line;
 
-	data[1029] = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	data[fd] = read_until_new_line(fd, data[fd]);

@@ -6,7 +6,7 @@
 /*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:15:55 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/30 15:03:10 by azakizad         ###   ########.fr       */
+/*   Updated: 2022/11/01 04:33:39 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ int	handle_wait_status(int *pids)
 	else
 		error = WCOREFLAG + WTERMSIG(exit_status);
 	free(pids);
-	buf = "?=";
+	buf[0] = '?';
+	buf[1] = '=';
+	buf[2] = '\0';
 	error_str = ft_itoa(error);
 	ft_strcat(buf, error_str);
 	free(error_str);
