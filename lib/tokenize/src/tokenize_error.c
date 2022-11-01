@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:42 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/11/01 08:27:52 by azakizad         ###   ########.fr       */
+/*   Updated: 2022/11/01 09:42:53 by pfuchs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ static bool	is_last_valid(t_token *t)
 
 bool	is_token_sequence_valid(t_token *t)
 {
-	if (!t) return true;
+	if (!t)
+		return (true);
 	if (!is_first_valid(t))
 		return (false);
 	while (t->next)
