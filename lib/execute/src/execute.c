@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:15:55 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:42 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/10/30 15:03:10 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	handle_wait_status(int *pids)
 {
 	int		exit_status;
 	int		error;
-	char	buf[10];
+	char	*buf;
 	char	*error_str;
 
 	exit_status = wait_children(pids);
@@ -61,7 +61,7 @@ int	handle_wait_status(int *pids)
 	else
 		error = WCOREFLAG + WTERMSIG(exit_status);
 	free(pids);
-	buf[10] = "?=";
+	buf = "?=";
 	error_str = ft_itoa(error);
 	ft_strcat(buf, error_str);
 	free(error_str);

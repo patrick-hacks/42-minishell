@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:17:06 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:24 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/10/30 15:42:09 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SRC_MINISHELL_H_
-# define SRC_MINISHELL_H_
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include "lib/environ/environ.h"
 # include "lib/parse/parse.h"

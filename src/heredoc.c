@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:59 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:27 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/10/30 15:18:24 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ static void	heredoc_child(cmd *c, int fd)
 			delim = c->redirect_input->str;
 			read_to_fd(
 				fd, delim,
-					c->redirect_input->flags & (TOK_DOUBLE_QUOTED | TOK_SINGLE_QUOTED));
+				c->redirect_input->flags
+				& (TOK_DOUBLE_QUOTED | TOK_SINGLE_QUOTED));
 			close(fd);
 		}
 		c = c->next;
@@ -88,7 +89,7 @@ int	heredoc_replace(cmd *c)
 {
 	char	*file_name;
 	int		fd;
-			int ret;
+	int		ret;
 	int		pid;
 
 	while (c)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 08:34:24 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:11:27 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/10/30 15:10:48 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "lib/libft/libft.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include <stddef.h>
+
 
 static char	*strjoin(char *str1, char *str2, int str2len)
 {
@@ -118,7 +120,7 @@ char	*get_next_line(int fd)
 	static char	*data[1030];
 	char		*line;
 
-	data[1030] = {NULL};
+	data[1029] = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	data[fd] = read_until_new_line(fd, data[fd]);

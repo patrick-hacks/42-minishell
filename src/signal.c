@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:17:09 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:24 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/10/30 15:20:51 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	sigint_handler_print_newline(int signo)
 void	set_signal(int sig)
 {
 	signal(SIGQUIT, SIG_DFL);
-	// fprintf(stderr, "setting signal mode to %d\n", sig);
 	if (sig == SIG_SUBSHELL)
 		signal(SIGINT, SIG_IGN);
 	if (sig == SIG_READLINE)

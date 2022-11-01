@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfuchs <pfuchs@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:17:04 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/10/25 09:17:26 by pfuchs           ###   ########.fr       */
+/*   Updated: 2022/10/30 15:19:52 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@
 //   return (0);
 // }
 
-static char	*pretty_readline()
+static char	*pretty_readline(void)
 {
 	char	*line;
 	char	*ret;
-		char prompt[20];
+	char	prompt[20];
 
 	set_signal(SIG_READLINE);
 	if (!isatty(0))
