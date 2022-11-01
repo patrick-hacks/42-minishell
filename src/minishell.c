@@ -6,7 +6,7 @@
 /*   By: azakizad <azakizad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:17:04 by pfuchs            #+#    #+#             */
-/*   Updated: 2022/11/01 06:08:36 by azakizad         ###   ########.fr       */
+/*   Updated: 2022/11/01 08:27:33 by azakizad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-// extern int(*rl_signal_event_hook)();
-
-// int rl_signal() {
-//   environ_add("?=130");
-//   write(1, "\n", 1);
-//   rl_set_prompt("\e[1;31m130\xE2\x9E\x9C\e[0m ");
-//   rl_on_new_line();
-//   rl_redisplay();
-//   return (0);
-// }
-
 static char	*pretty_readline(void)
 {
 	char	*line;
 	char	*ret;
-	char	prompt[20];
+	char	prompt[40];
 
 	set_signal(SIG_READLINE);
 	if (!isatty(0))
